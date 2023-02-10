@@ -1,7 +1,7 @@
 <?php
-  $servername = "localhost";
-  $username = "root";
-  $password = "";
+  $servername = "mysqldatabase.cncyjoyafhkj.us-east-1.rds.amazonaws.com";
+  $username = "admin";
+  $password = "SEgroupd";
   $dbname = "tutor_online";
 
   // Create connection
