@@ -4,7 +4,7 @@
    $password = "SEgroupd";
    $dbname = "tutor_online";
 
-//  $servername = "localhost";
+ // $servername = "localhost";
  // $username = "root";
  // $password = "";
  // $dbname = "tutor_online";
