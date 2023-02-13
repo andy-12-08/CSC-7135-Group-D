@@ -17,7 +17,8 @@
       header('Location: dashboard.php');
       exit;
     } else {
-      // User does not exist, show an error message
+
+      // User does no longer exist, show an error message
       $error = "Incorrect username or password";
     }
   }
