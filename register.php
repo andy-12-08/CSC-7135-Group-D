@@ -1,8 +1,7 @@
     <?php
       include 'database/db_connect.php';
-
+      include 'sendemail/mail.php';
       $data = array();
-
       function checkEmailDomain($email, $domain) {
       if (preg_match("/@".$domain."$/", $email)) {
         return true;
@@ -10,7 +9,6 @@
         return false;
       }
     }
-
       if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $username = $_POST['email'];
 
@@ -29,9 +27,9 @@
 
             $sql = "INSERT INTO users (username, email, password)
             VALUES ( '$username', ' $username', '$hash')";
-
             if (mysqli_query($conn, $sql)) {
             echo "New record created successfully";
+            send_email($username, $username);
             } else {
             echo "Error: " . $sql . "<br>" . mysqli_error($conn);
             }
@@ -39,14 +37,8 @@
          }
 
       } else {
-        // Email ID is not from the specific domain
+
       }
-
-
-
-        // Connect to database and check if the user exists
-        // Add your database connection code here
-
       }
     ?>
 
