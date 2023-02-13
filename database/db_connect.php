@@ -1,13 +1,13 @@
 <?php
-//   $servername = "mysqldatabase.cncyjoyafhkj.us-east-1.rds.amazonaws.com";
-//   $username = "admin";
-//   $password = "SEgroupd";
-//   $dbname = "tutor_online";
+   $servername = "mysqldatabase.cncyjoyafhkj.us-east-1.rds.amazonaws.com";
+   $username = "admin";
+   $password = "SEgroupd";
+   $dbname = "tutor_online";
 
-  $servername = "localhost";
-  $username = "root";
-  $password = "";
-  $dbname = "tutor_online";
+//  $servername = "localhost";
+ // $username = "root";
+ // $password = "";
+ // $dbname = "tutor_online";
 
   // Create connection
   $conn = mysqli_connect($servername, $username, $password, $dbname);
