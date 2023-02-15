@@ -1,31 +1,70 @@
-<?php
-  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="csstemp/animations.css">
+    <link rel="stylesheet" href="csstemp/main.css">
+    <link rel="stylesheet" href="csstemp/index.css">
+    <title>eTutor</title>
+    <style>
+        table{
+            animation: transitionIn-Y-bottom 0.5s;
+        }
+    </style>
 
-    // Connect to database and check if the user exists
-    // Add your database connection code here
+</head>
+<body>
 
-    $query = "SELECT * FROM users WHERE username='$username' AND password='$password'";
-    $result = mysqli_query($conn, $query);
+    <div class="full-height">
+        <center>
+        <table border="0">
+            <tr>
+                <td width="80%">
+                    <font class="edoc-logo">eTutor. </font>
+                    <font class="edoc-logo-sub">| Online Tutoring System</font>
+                </td>
+                <td width="10%">
+                   <a href="login.php"  class="non-style-link"><p class="nav-item">LOGIN</p></a>
+                </td>
+                <td  width="10%">
+                    <a href="register.php" class="non-style-link"><p class="nav-item" style="padding-right: 10px;">REGISTER</p></a>
+                </td>
+            </tr>
 
-    if (mysqli_num_rows($result) > 0) {
-      // User exists, start a session and redirect to the main page
-      session_start();
-      $_SESSION['logged_in'] = true;
-      $_SESSION['username'] = $username;
-      header('Location: dashboard.php');
-      exit;
-    } else {
+            <tr>
+                <td  colspan="3">
+                    <p class="heading-text">Experience personalized learning with expert online tutors</p>
 
-      // User does no longer exist, show an error message
-      $error = "Incorrect username or password";
-    }
-  }
-?>
+                </td>
+            </tr>
+            <tr>
+                <td  colspan="3">
+                    <p class="sub-text2">Welcome to our online tutoring website, the perfect destination for students seeking a personalized and effective learning experience<br>Don't worry. Find your Tutor online Book as you wish with eTutor. <br>
+                    We offer you connect to your Tutor, Make your appointment now.</p>
+                </td>
+            </tr>
+            <tr>
 
-<?php include 'html/login.html'; ?>
+                <td colspan="3">
+                    <center>
+                    <a href="login.php" >
+                        <input type="button" value="Make Appointment" class="login-btn btn-primary btn" style="padding-left: 25px;padding-right: 25px;padding-top: 10px;padding-bottom: 10px;">
+                    </a>
+                </center>
+                </td>
 
-<?php if (isset($error)) { ?>
-  <div class="error"><?php echo $error; ?></div>
-<?php } ?>
+            </tr>
+            <tr>
+                <td colspan="3">
+
+                </td>
+            </tr>
+        </table>
+        <p class="sub-text2 footer-hashen">A Web Solution for Online Tution.</p>
+    </center>
+
+    </div>
+</body>
+</html>

@@ -25,8 +25,8 @@
             ];
             $hash = password_hash($password,  PASSWORD_ARGON2I, $options);
 
-            $sql = "INSERT INTO users (username, email, password)
-            VALUES ( '$username', ' $username', '$hash')";
+            $sql = "INSERT INTO users (username, email, password,usertype)
+            VALUES ( '$username', ' $username', '$password','S')";
             if (mysqli_query($conn, $sql)) {
             echo "New record created successfully";
             send_email($username, $username);

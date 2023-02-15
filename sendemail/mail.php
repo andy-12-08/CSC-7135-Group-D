@@ -30,7 +30,7 @@ function send_email($to_email, $to_name) {
     $mail->Subject = 'Email Confirmation for Online Tutor';
     $mail->Body = '<i>Mail body in HTML</i><br><br>' .
               'Click the link below to verify your email:<br>' .
-              '<a href="localhost/tutoronline/verify.php?code=' . $verification_code . '">Verify Email</a>';
+              '<a href="localhost/tutoronline/verify.php?code=' . $to_email . '">Verify Email</a>';
     $mail->AltBody = 'This is the plain text version of the email content';
 
     $mail->send();
