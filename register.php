@@ -25,10 +25,8 @@
             'time_cost' => 4,
             'threads' => 2,
             ];
-        $hash = password_hash($password,  PASSWORD_ARGON2I, $options);
-		   
-		   
-		$sqlmain= "select * from webuser where email=?;";
+        $hash = password_hash($password,  PASSWORD_ARGON2I, $options);	   
+	$sqlmain= "select * from webuser where email=?;";
         $stmt = $conn->prepare($sqlmain);
         $stmt->bind_param("s",$email);
         $stmt->execute();
@@ -40,41 +38,14 @@
             $conn->query("insert into student(semail,sname,spassword) 
 			values('$email','$username','$hash');");
             $conn->query("insert into webuser values('$email','S',0)");
-             send_email($email, $username);
-            //print_r("insert into patient values($pid,'$email','$fname','$lname','$newpassword','$address','$nic','$dob','$tele');");
+            send_email($email, $username);
             $_SESSION["user"]=$email;
             $_SESSION["usertype"]="S";
             $_SESSION["username"]=$username;
-
             header('Location: http://phpapplication-env.eba-mrbqpmvh.us-east-1.elasticbeanstalk.com/index.php');
             $error='<label for="promter" class="form-label" style="color:rgb(255, 62, 62);text-align:center;"></label>';
         }
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-
-		  
-
-//            $sql = "INSERT INTO users (username, email, password,usertype)
-//            VALUES ( '$username', ' $username', '$password','S')";
-//            if (mysqli_query($conn, $sql)) {
-//				
-//		
-//			
-//            echo "New record created successfully";
-//            send_email($username, $username);
-//            header("Location: http://phpapplication-env.eba-mrbqpmvh.us-east-1.elasticbeanstalk.com/index.php");
-//            } else {
-//            echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-//            }
-//            mysqli_close($conn);
+		    
          }
 
       } else {
