@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Required meta tags -->
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
@@ -36,15 +36,22 @@
               <p class="mb-4">Unleash Your Potential with Convenient, Quality Online Tutoring</p>
             </div>
             <form action="register.php" method="post">
+				
+			    <div class="form-group first">
+                <label for="text">User Name</label>
+                <input type="text" class="form-control" id="username" name="username">
+              </div>
+				
+				
               <div class="form-group first">
-             <label for="email">username@lsu.edu</label>
+              <label for="email">username@lsu.edu</label>
 <!--                <input type="text" class="form-control" id="username" name="username">-->
                 <input type="email" name="email" id ="email" class="form-control"
                 pattern=".+@lsu\.edu">
-
-
               </div>
-
+				
+			  
+			
               <div class="form-group last first">
                 <label for="password">Password</label>
                 <input type="password" class="form-control" id="password" name="password">
@@ -55,22 +62,13 @@
                 <input type="password" class="form-control" id="confirm_password" name="confirm_password">
               </div>
 
-                <?php if (isset($_POST['password']) && isset($_POST['confirm_password']) && $_POST['password'] != $_POST['confirm_password']) { ?>
-    <span style="color:red">Error: Passwords do not match</span><br><br>
-  <?php } else { ?>
-    <br>
-  <?php } ?>
 
+<?php if (isset($_POST['password']) && isset($_POST['confirm_password']) && $_POST['password'] != $_POST['confirm_password']) { ?>
+  <span style="color:red"><?php echo htmlspecialchars("Error: Passwords do not match"); ?></span><br><br>
+<?php } else { ?>
+  <br>
+<?php } ?>
 
-
-
-<!--              <div class="d-flex mb-5 align-items-center">-->
-<!--                <label class="control control&#45;&#45;checkbox mb-0"><span class="caption">Remember me</span>-->
-<!--                  <input type="checkbox" checked="checked"/>-->
-<!--                  <div class="control__indicator"></div>-->
-<!--                </label>-->
-<!--                <span class="ml-auto"><a href="#" class="forgot-pass">Forgot Password</a></span>-->
-<!--              </div>-->
 
               <input type="submit" value="Register" class="btn btn-block btn-primary">
 

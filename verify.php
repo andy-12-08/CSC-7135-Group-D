@@ -5,7 +5,7 @@ include 'database/db_connect.php';
 
 
 // Update the database column
-$sql = "UPDATE users SET email_verification	 = 1 WHERE trim(email) = trim('$verification_code')";
+$sql = "UPDATE webuser SET email_verification	 = 1 WHERE trim(email) = trim('$verification_code')";
 
 if (mysqli_query($conn, $sql)) {
     echo 'Your email address has been verified. Thank you!';

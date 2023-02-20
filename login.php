@@ -7,54 +7,59 @@ $_SESSION["usertype"]="";
 // Set the new timezone
 date_default_timezone_set('America/New_York');
 $date = date('Y-m-d');
-
 $_SESSION["date"]=$date;
-
-// $servername = "mysqldatabase.cncyjoyafhkj.us-east-1.rds.amazonaws.com";
-// $username = "admin";
-// $password = "SEgroupd";
-// $dbname = "tutor_online";
-// Create connection
 include 'database/db_connect.php';
-//$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-echo "Lsu TutorOnline";
-
 // Check if the form has been submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Get the user input
-    $username = $_POST['username'];
+    $email = $_POST['username'];
     $password = $_POST['password'];
 
     if (!$conn) {
         die('Failed to connect to database: ' . mysqli_connect_error());
     }
         // Sanitize user input
-        $username = mysqli_real_escape_string($conn, $_POST['username']);
+        $email = mysqli_real_escape_string($conn, $_POST['username']);
         $password = mysqli_real_escape_string($conn, $_POST['password']);
 
         // Construct the SQL query
-        $sql = "SELECT * FROM users WHERE trim(username)= trim('$username') AND password='$password'";
+        $sql = "SELECT * FROM webuser WHERE trim(email)= trim('$email') AND email_verification= 1 ";
         // Execute the query and get the result set
         $result = $conn->query($sql);
         // Check if the result set is not empty
-        if ($result->num_rows > 0) {
+        if ($result->num_rows == 1) {
         // Fetch the data from the result set
         $row = $result->fetch_assoc();
-        echo $utype = $row['usertype'];
-
-         if ($utype =='S'){
-                //TODO
-                //  Student dashbord
-                $_SESSION['user']= $username;
-                $_SESSION['usertype']='S';
-                header('Location: student/dashboard.php');
-                exit;
-        } else {
+        $utype = $row['usertype'];	
+        if ($utype =='S'){
+			    $sql = "Select spassword from student where trim(semail)= trim('$email') ";
+			    $result = $conn->query($sql);
+			    $row = $result->fetch_assoc();
+			    echo $upassword = $row['spassword'];
+			 if (password_verify($password, $upassword)) {
+				    $_SESSION['user']= $email;
+					$_SESSION['usertype']='S';
+					header('Location: student/studentdashboard.php');
+					exit;
+                 }else{
+                    $error='<label for="promter" class="form-label" style="color:rgb(255, 62, 62);text-align:center;">Wrong credentials: Invalid email or password</label>';
+                }
+               
+		 }elseif($utype =='A'){
+			    $_SESSION['user']= $email;
+                $_SESSION['usertype']='A';
+                header('Location: admin/dashboard.php');
+                exit;	 
+		 }elseif($utype =='T'){
+			    $_SESSION['user']= $email;
+                $_SESSION['usertype']='T';
+                header('Location: tutor/dashboard.php');
+                exit;	 
+		 }else {
         // Display an error message if the login failed
         $error = 'Invalid username or password';
         }
@@ -63,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $conn->close();
 
         // Close the database connection
-        mysqli_close($conn);
+        //mysqli_close($conn);
     }
 }
 ?>

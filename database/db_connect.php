@@ -1,18 +1,18 @@
 <?php
-//   $servername = "mysqldatabase.cncyjoyafhkj.us-east-1.rds.amazonaws.com";
-//   $username = "admin";
-//   $password = "SEgroupd";
-//   $dbname = "tutor_online";
-
-  $servername = "localhost";
-  $username = "root";
-  $password = "";
+  $servername = "mysqldatabase.cncyjoyafhkj.us-east-1.rds.amazonaws.com";
+  $username = "admin";
+  $password = "SEgroupd";
   $dbname = "tutor_online";
 
+//   $servername = "localhost";
+//   $username = "root";
+//   $password = "";
+//   $dbname = "tutor_online";
+
   // Create connection
-  $conn = mysqli_connect($servername, $username, $password, $dbname);
-
-
+ 
+ $conn = mysqli_connect($servername, $username, $password, $dbname);
+ $database = mysqli_connect($servername, $username, $password, $dbname);
 
   // Check connection
   if (!$conn) {
@@ -20,6 +20,6 @@
   }
 
   else{
-  echo "Database Connected";
+ // echo "Database Connected";
   }
 ?>

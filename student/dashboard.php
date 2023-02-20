@@ -10,9 +10,9 @@
 
     <title>Dashboard</title>
     <style>
-        .dashbord-tables{
+          .dashbord-tables{
             animation: transitionIn-Y-over 0.5s;
-        }
+          }
         .filter-container{
             animation: transitionIn-Y-bottom  0.5s;
         }
@@ -23,7 +23,7 @@
 
 
 </head>
-<body>
+<body>z
 
 <?php
  session_start();
@@ -380,12 +380,6 @@
                                         </table>
                                         </div>
                                         </center>
-
-
-
-
-
-
 
                                 </td>
                             </tr>
