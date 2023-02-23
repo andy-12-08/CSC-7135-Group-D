@@ -6,7 +6,7 @@
 <link rel="apple-touch-icon" sizes="76x76" href="../student/assets/img/apple-icon.png">
 <link rel="icon" type="image/png" href="../student/assets/img/favicon.png">
 <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
-<title> Admin Dashboard </title>
+<title> Tutor Dashboard </title>
 <!--     Fonts and icons     -->
 <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
 <!-- Nucleo Icons -->
@@ -21,15 +21,13 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.5/dist/sweetalert2.min.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.5/dist/sweetalert2.min.js"></script>
 </head>
-
-
 <?php
 session_start();
 include '../sendemail/checkmail.php';
 include( "../database/db_connect.php" );
 if ( isset( $_SESSION[ "user" ] ) ) {
   if ( ( $_SESSION[ "user" ] ) == ""
-    or $_SESSION[ 'usertype' ] != 'A' ) {
+    or $_SESSION[ 'usertype' ] != 'T' ) {
     header( "location: ../login.php" );
   } else {
     $useremail = $_SESSION[ "user" ];
@@ -47,65 +45,66 @@ if ( $conn->connect_error ) {
 date_default_timezone_set( 'US/Eastern' );
 $today = date( 'Y-m-d' );
 $today;
-$sqlmain = "select * from admin where aemail=? ";
+$sqlmain = "select * from tutor where tutoremail=? ";
 $stmt = $conn->prepare( $sqlmain );
 $stmt->bind_param( "s", $useremail );
 $stmt->execute();
 $userrow = $stmt->get_result();
 $userfetch = $userrow->fetch_assoc();
-$userid = $userfetch[ "aemail" ];
-$username = $userfetch[ "admin_name" ];
+$userid = $userfetch[ "tutoremail" ];
+$username = $userfetch[ "tutorname" ];
+$tutorid = $userfetch[ "tutorid" ];
+$tutorsubject = $userfetch[ "specialties" ];
 
+//SELECT * FROM appointment WHERE appodate >= CURDATE() IF (ROW_COUNT() = 0) THEN SELECT 0;
 $studentrow = $conn->query( "select  * from  student;" );
 $tutorrow = $conn->query( "select  * from  tutor;" );
-   $appointmentcount = 0;
-    $scheduletcount = 0;
+$appointmentcount = 0;
+$scheduletcount = 0;
 
-	$appointmentrow = $conn->query( "SELECT * FROM appointment WHERE appodate >= CURDATE()
+$appointmentrow = $conn->query( "SELECT * FROM appointment WHERE appodate >= CURDATE()
     UNION
     SELECT 0 FROM DUAL WHERE NOT EXISTS(SELECT * FROM appointment WHERE appodate >= CURDATE());" );
-	if ($appointmentrow === false){
-	$appointmentcount == 0;
-	} else if (is_null($appointmentrow->num_rows) || $appointmentrow->num_rows == 0 ) {
-	$appointmentcount == 0;
-	} else {
-	while ($row = mysqli_fetch_assoc($appointmentrow)) {
-	  $appointmentcount =  $appointmentrow ->num_rows;
-	}
+if ( $appointmentrow === false ) {
+  $appointmentcount == 0;
+} else if ( is_null( $appointmentrow->num_rows ) || $appointmentrow->num_rows == 0 ) {
+  $appointmentcount == 0;
+} else {
+  while ( $row = mysqli_fetch_assoc( $appointmentrow ) ) {
+    $appointmentcount = $appointmentrow->num_rows;
   }
+}
 
-   $schedulerow = $conn->query( "select  * from  schedule where scheduledate >= CURDATE()
+$schedulerow = $conn->query( "select  * from  schedule where scheduledate >= CURDATE()
    UNION
-   SELECT 0 FROM DUAL WHERE NOT EXISTS(select  * from  schedule where scheduledate >= CURDATE();");
+   SELECT 0 FROM DUAL WHERE NOT EXISTS(select  * from  schedule where scheduledate >= CURDATE();" );
 
-if ($schedulerow === false){
-	$scheduletcount == 0;
-	} else if (is_null($schedulerow->num_rows) || $schedulerow->num_rows == 0 ) {
-	$scheduletcount == 0;
-	} else {
-	while ($row = mysqli_fetch_assoc($schedulerow)) {
-	  $scheduletcount =  $schedulerow ->num_rows;
-	}
+if ( $schedulerow === false ) {
+  $scheduletcount == 0;
+} else if ( is_null( $schedulerow->num_rows ) || $schedulerow->num_rows == 0 ) {
+  $scheduletcount == 0;
+} else {
+  while ( $row = mysqli_fetch_assoc( $schedulerow ) ) {
+    $scheduletcount = $schedulerow->num_rows;
   }
+}
 
 if ( $_SERVER[ 'REQUEST_METHOD' ] === 'POST' ) {
+
+  //$time = "14:30:00"; // Sample time
+   echo $scheduleDate = $_POST[ 'schedule_date' ];
+   echo $scheduleTime = $_POST[ 'schedule_time' ];
 	
-	
 
-
-
-  $tutorname = $_POST[ 'tutor_name' ];
-  $tutormail = $_POST[ 'tutor_email' ];
-  $departmentId = $_POST[ "department_id" ];
-  $query = "INSERT INTO tutor ( tutoremail,tutorname,tutorpassword, specialties) VALUES ('$tutormail', '$tutorname','123','$departmentId')";
+  $query = "INSERT INTO schedule (tutorid,title,scheduledate,scheduletime,nop) 
+  VALUES ('$tutorid', '$tutorsubject',' $scheduleDate','$scheduleTime','N');";
 
   if ( $conn->query( $query ) === true ) {
-    $conn->query( "insert into webuser values('$tutormail','T',0)" );
-    send_email( $tutormail, $tutorname );
+   // send_email( $tutormail, $tutorname );
      echo "<script>
             Swal.fire({
-              title: 'Tutor Added!',
-              text: 'You have succesfully addded the Tutor.',
+              title: 'Schedule Added!',
+              text: 'You have added your schedule.',
               icon: 'success'
             });
           </script>";
@@ -114,13 +113,10 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] === 'POST' ) {
   }
   $conn->close();
 
-
 }
 
 
 ?>
-
-
 
 <boody class="g-sidenav-show  bg-gray-200">
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main">
@@ -128,16 +124,12 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] === 'POST' ) {
   <hr class="horizontal light mt-0 mb-2">
   <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
     <ul class="navbar-nav">
-      <li class="nav-item"> <a class="nav-link text-white " href="../admin/dashboard.php">
+      <li class="nav-item"> <a class="nav-link text-white " href="../tutor/dashboard.php">
         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center"> <i class="material-icons opacity-10">dashboard</i> </div>
         <span class="nav-link-text ms-1">Dashboard</span> </a> </li>
-      <li class="nav-item"> <a class="nav-link text-white active bg-gradient-primary" href="../admin/add_tutor.php">
+      <li class="nav-item"> <a class="nav-link text-white active bg-gradient-primary" href="../tutor/add_schedule.php">
         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center"> <i class="material-icons opacity-10">table_view</i> </div>
         <span class="nav-link-text ms-1">Tutor</span> </a> </li>
-      <li class="nav-item"> <a class="nav-link text-white " href="../pages/billing.html">
-        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center"> <i class="material-icons opacity-10">receipt_long</i> </div>
-        <span class="nav-link-text ms-1">Support</span> </a> </li>
-      
       <li class="nav-item"> <a class="nav-link text-white " href="../pages/notifications.html">
         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center"> <i class="material-icons opacity-10">notifications</i> </div>
         <span class="nav-link-text ms-1">Notifications</span> </a> </li>
@@ -228,7 +220,7 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] === 'POST' ) {
             <div class="text-end pt-1">
               <p class="text-sm mb-0 text-capitalize">Today's Appointment</p>
               <h4 class="mb-0">
-                <?php    echo $scheduletcount  ?>
+                <?php    echo $scheduletcount ?>
               </h4>
             </div>
           </div>
@@ -242,30 +234,33 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] === 'POST' ) {
         <div class="card my-4">
           <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
             <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-              <h6 class="text-white text-capitalize ps-3">Add Tutor</h6>
+              <h6 class="text-white text-capitalize ps-3">Add Schedule</h6>
             </div>
           </div>
           <div class="card card-plain">
             <div class="card-body">
-              <form role="form" id="add-tutor-form" action="add_tutor.php" method="post">
-                <div class="input-group input-group-outline mb-3">
-                  <label class="form-label" for="tutor-name">Tutor Name</label>
-                  <input type="text" class="form-control" id="tutor_name" name="tutor_name" required>
-                </div>
-                <div class="input-group input-group-outline mb-3">
-                  <label class="form-label" for="tutor-email">Email</label>
-                  <input type="email" class="form-control" id="tutor_email" name="tutor_email" required>
-                </div>
-                <div class="input-group input-group-outline mb-3">
-                  <select class="form-control form-control-lg" id="tutor-department" name="tutor-department">
-                    <option value="">Select a department</option>
-                  </select>
-                </div>
+				
+		<form method="post" action="add_schedule.php">
+			
+			 <div class="input-group input-group-outline mb-3">
+				<input type="date" name="schedule_date" required><br>
+			</div>
+			 <div class="input-group input-group-outline mb-3">
+				<label for="schedule_time">Time:</label>
+			    <input type="time" class="without_ampm" step ="1200" id="schedule_time" name="schedule_time" min="09:00" max="17:00">
+			</div>
+                <small>Enter a valid time between 09:00 and 18:00, in 20-minute intervals</small>
+		 <div class="input-group input-group-outline mb-3">
+
                 <input type="hidden" name="department_id" id="departmentIdInput" value="" required>
-                <div class="text-center" style="float: right !important">
-                  <input type="submit" value="add" class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">
-                </div>
-              </form>
+				<input type="submit" name="submit" value="Add Schedule">
+			</div>
+		</form>
+				
+			
+				
+				
+              
             </div>
           </div>
         </div>
@@ -279,6 +274,11 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] === 'POST' ) {
 <script src="../student/assets/js/core/bootstrap.min.js"></script> 
 <script src="../student/assets/js/plugins/perfect-scrollbar.min.js"></script> 
 <script src="../student/assets/js/plugins/smooth-scrollbar.min.js"></script> 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/timepicker.js/latest/timepicker.min.js"></script>
+<link href="https://cdn.jsdelivr.net/timepicker.js/latest/timepicker.min.css" rel="stylesheet"/>
+
 <script>
       var win = navigator.platform.indexOf('Win') > -1;
       if (win && document.querySelector('#sidenav-scrollbar')) {
@@ -287,31 +287,40 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] === 'POST' ) {
         }
         Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
       }
+	
+//	const inputTime = document.getElementById('schedule_time').value; // get the value of the input
+//	const time = inputTime.split(':'); // split the input into hours and minutes
+//	let hours = parseInt(time[0]);
+//	let minutes = time[1];
+//	let amPm = hours >= 12 ? 'PM' : 'AM'; // determine if it's AM or PM
+//	hours = hours % 12; // convert to 12-hour format
+//	hours = hours ? hours : 12; // handle 0 case
+//	if (hours === 12 && minutes === undefined) {
+//     amPm = 'AM';
+//   }
+//	
+//	
+//	const formattedTime = hours + ':' + minutes + ' ' + amPm; // format the time with AM/PM
+//	console.log(formattedTime); 
+//		departmentIdInput.value = formattedTime;
+	
+	
+	var timepicker = new TimePicker('time', {
+	lang: 'en',
+	theme: 'dark'
+	});
+	timepicker.on('change', function(evt) {
+
+	var value = (evt.hour || '00') + ':' + (evt.minute || '00');
+	evt.element.value = value;
+
+	});
 
 
-          const departmentDropdown = document.getElementById("tutor-department");
 
-          // Fetch departments from a database and add them to the dropdown
-          fetch("../admin/departments.php")
-              .then(response => response.json())
-              .then(departments => {
-                  departments.forEach(department => {
-                      const option = document.createElement("option");
-                      option.value = department.id;
-                      option.text = department.name;
-                      departmentDropdown.add(option);
-                  });
-              });
+	  
 
-          // When a department is selected, get its id
-          departmentDropdown.addEventListener("change", () => {
-              const departmentId = departmentDropdown.value;
-              console.log(`Selected department id: ${departmentId}`);
-              departmentIdInput.value = departmentId;
-          });
-
-
-</script> 
+    </script> 
 <!-- Github buttons --> 
 <script async defer src="https://buttons.github.io/buttons.js"></script> 
 <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc --> 
