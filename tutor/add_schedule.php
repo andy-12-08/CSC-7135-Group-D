@@ -62,33 +62,22 @@ $tutorrow = $conn->query( "select  * from  tutor;" );
 $appointmentcount = 0;
 $scheduletcount = 0;
 
-$appointmentrow = $conn->query( "SELECT * FROM appointment WHERE appodate >= CURDATE()
-    UNION
-    SELECT 0 FROM DUAL WHERE NOT EXISTS(SELECT * FROM appointment WHERE appodate >= CURDATE());" );
-if ( $appointmentrow === false ) {
-  $appointmentcount == 0;
-} else if ( is_null( $appointmentrow->num_rows ) || $appointmentrow->num_rows == 0 ) {
-  $appointmentcount == 0;
-} else {
-  while ( $row = mysqli_fetch_assoc( $appointmentrow ) ) {
-    $appointmentcount = $appointmentrow->num_rows;
-  }
-}
 
-$schedulerow = $conn->query( "select  * from  schedule where scheduledate >= CURDATE()
-   UNION
-   SELECT 0 FROM DUAL WHERE NOT EXISTS(select  * from  schedule where scheduledate >= CURDATE();" );
+$appointmentrow = $conn->query( "SELECT IFNULL(COUNT(*), 0) AS num_appointments
+	FROM appointment
+	WHERE appodate >= CURDATE();" );
 
-if ( $schedulerow === false ) {
-  $scheduletcount == 0;
-} else if ( is_null( $schedulerow->num_rows ) || $schedulerow->num_rows == 0 ) {
-  $scheduletcount == 0;
-} else {
-  while ( $row = mysqli_fetch_assoc( $schedulerow ) ) {
-    $scheduletcount = $schedulerow->num_rows;
-  }
-}
+	$row = $appointmentrow->fetch_assoc();
+	$num_appointments = $row['num_appointments']; 
 
+	$appointmentcount = $num_appointments;
+$schedulerow = $conn->query( "SELECT IFNULL(COUNT(*), 0) AS num_schedule
+	FROM schedule
+	WHERE scheduledate >= CURDATE();");
+
+	$row = $schedulerow->fetch_assoc();
+	$num_schedule = $row['num_schedule']; 
+    $scheduletcount = $num_schedule;
 if ( $_SERVER[ 'REQUEST_METHOD' ] === 'POST' ) {
 
   //$time = "14:30:00"; // Sample time

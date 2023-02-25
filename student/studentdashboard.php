@@ -1,7 +1,5 @@
 <?php
-
-
- session_start();
+  session_start();
  if(isset($_SESSION["user"])){
         if(($_SESSION["user"])=="" or $_SESSION['usertype']!='S'){
             header("location: ../login.php");
@@ -31,42 +29,28 @@
 
 	$today = date('Y-m-d');
 	$today;
+    $appointmentcount = 0;
+    $scheduletcount = 0;
+
 
 	$studentrow = $conn->query("select  * from  student;");
 	$tutorrow = $conn->query("select  * from  tutor;");
+	$appointmentrow = $conn->query( "SELECT IFNULL(COUNT(*), 0) AS num_appointments
+		FROM appointment
+		WHERE appodate >= CURDATE();" );
 
-     $appointmentcount = 0;
-     $scheduletcount = 0;
+	$row = $appointmentrow->fetch_assoc();
+	$num_appointments = $row['num_appointments']; 
 
- 	$appointmentrow = $conn->query( "SELECT * FROM appointment WHERE appodate >= CURDATE()
-    UNION
-    SELECT 0 FROM DUAL WHERE NOT EXISTS(SELECT * FROM appointment WHERE appodate >= CURDATE());" );
-	if ($appointmentrow === false){
-	$appointmentcount == 0;
-	} else if (is_null($appointmentrow->num_rows) || $appointmentrow->num_rows == 0 ) {
-	$appointmentcount == 0;
-	} else {
-	while ($row = mysqli_fetch_assoc($appointmentrow)) {
-	  $appointmentcount =  $appointmentrow ->num_rows;
-	}
-  }
+    $appointmentcount = $num_appointments;
 
+	$schedulerow = $conn->query( "SELECT IFNULL(COUNT(*), 0) AS num_schedule
+	FROM schedule
+	WHERE scheduledate >= CURDATE();");
 
-    $schedulerow = $conn->query( "select  * from  schedule where scheduledate >= CURDATE()
-   UNION
-   SELECT 0 FROM DUAL WHERE NOT EXISTS(select  * from  schedule where scheduledate >= CURDATE();");
-
-   if ($schedulerow === false){
-	$scheduletcount == 0;
-	} else if (is_null($schedulerow->num_rows) || $schedulerow->num_rows == 0 ) {
-	$scheduletcount == 0;
-	} else {
-	while ($row = mysqli_fetch_assoc($schedulerow)) {
-	  $scheduletcount =  $schedulerow ->num_rows;
-	}
-  }
-
-
+	$row = $schedulerow->fetch_assoc();
+	$num_schedule = $row['num_schedule']; 
+    $scheduletcount = $num_schedule;
 
     $list11 = $conn->query("select  tutorname,tutoremail from  tutor;");
 
@@ -116,7 +100,7 @@
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link text-white active bg-gradient-primary" href="../pages/dashboard.html">
+          <a class="nav-link text-white active bg-gradient-primary" href="../student/studentdashboard.php">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">dashboard</i>
             </div>
