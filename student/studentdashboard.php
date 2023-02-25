@@ -34,7 +34,11 @@
 
 	$studentrow = $conn->query("select  * from  student;");
 	$tutorrow = $conn->query("select  * from  tutor;");
-		$appointmentrow = $conn->query( "SELECT * FROM appointment WHERE appodate >= CURDATE()
+
+     $appointmentcount = 0;
+     $scheduletcount = 0;
+
+ 	$appointmentrow = $conn->query( "SELECT * FROM appointment WHERE appodate >= CURDATE()
     UNION
     SELECT 0 FROM DUAL WHERE NOT EXISTS(SELECT * FROM appointment WHERE appodate >= CURDATE());" );
 	if ($appointmentrow === false){
@@ -46,11 +50,13 @@
 	  $appointmentcount =  $appointmentrow ->num_rows;
 	}
   }
-  $schedulerow = $conn->query( "select  * from  schedule where scheduledate >= CURDATE()
+
+
+    $schedulerow = $conn->query( "select  * from  schedule where scheduledate >= CURDATE()
    UNION
    SELECT 0 FROM DUAL WHERE NOT EXISTS(select  * from  schedule where scheduledate >= CURDATE();");
 
-if ($schedulerow === false){
+   if ($schedulerow === false){
 	$scheduletcount == 0;
 	} else if (is_null($schedulerow->num_rows) || $schedulerow->num_rows == 0 ) {
 	$scheduletcount == 0;
@@ -59,6 +65,8 @@ if ($schedulerow === false){
 	  $scheduletcount =  $schedulerow ->num_rows;
 	}
   }
+
+
 
     $list11 = $conn->query("select  tutorname,tutoremail from  tutor;");
 
