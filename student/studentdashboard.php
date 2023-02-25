@@ -34,8 +34,31 @@
 
 	$studentrow = $conn->query("select  * from  student;");
 	$tutorrow = $conn->query("select  * from  tutor;");
-	$appointmentrow = $conn->query("select  * from  appointment where appodate>='$today';");
-	$schedulerow = $conn->query("select  * from  schedule where scheduledate='$today';");
+		$appointmentrow = $conn->query( "SELECT * FROM appointment WHERE appodate >= CURDATE()
+    UNION
+    SELECT 0 FROM DUAL WHERE NOT EXISTS(SELECT * FROM appointment WHERE appodate >= CURDATE());" );
+	if ($appointmentrow === false){
+	$appointmentcount == 0;
+	} else if (is_null($appointmentrow->num_rows) || $appointmentrow->num_rows == 0 ) {
+	$appointmentcount == 0;
+	} else {
+	while ($row = mysqli_fetch_assoc($appointmentrow)) {
+	  $appointmentcount =  $appointmentrow ->num_rows;
+	}
+  }
+  $schedulerow = $conn->query( "select  * from  schedule where scheduledate >= CURDATE()
+   UNION
+   SELECT 0 FROM DUAL WHERE NOT EXISTS(select  * from  schedule where scheduledate >= CURDATE();");
+
+if ($schedulerow === false){
+	$scheduletcount == 0;
+	} else if (is_null($schedulerow->num_rows) || $schedulerow->num_rows == 0 ) {
+	$scheduletcount == 0;
+	} else {
+	while ($row = mysqli_fetch_assoc($schedulerow)) {
+	  $scheduletcount =  $schedulerow ->num_rows;
+	}
+  }
 
     $list11 = $conn->query("select  tutorname,tutoremail from  tutor;");
 
@@ -304,7 +327,7 @@
 				</div>
 				<div class="text-end pt-1">
 				<p class="text-sm mb-0 text-capitalize">New Appointments</p>
-				<h4 class="mb-0"><?php    echo $appointmentrow ->num_rows  ?></h4>
+				<h4 class="mb-0"><?php    echo $appointmentcount  ?></h4>
 				</div>
 				</div>
 				</div>
@@ -317,7 +340,7 @@
 				</div>
 				<div class="text-end pt-1">
 				<p class="text-sm mb-0 text-capitalize">Today's Appointment</p>
-				<h4 class="mb-0"> <?php    echo $schedulerow ->num_rows  ?></h4>
+				<h4 class="mb-0"> <?php    echo $scheduletcount  ?></h4>
 				</div>
 				</div>
 				</div>
