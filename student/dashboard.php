@@ -1,395 +1,401 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../csstemp/animations.css">
-    <link rel="stylesheet" href="../csstemp/main.css">
-    <link rel="stylesheet" href="../csstemp/admin.css">
-
-    <title>Dashboard</title>
-    <style>
-          .dashbord-tables{
-            animation: transitionIn-Y-over 0.5s;
-          }
-        .filter-container{
-            animation: transitionIn-Y-bottom  0.5s;
-        }
-        .sub-table,.anime{
-            animation: transitionIn-Y-bottom 0.5s;
-        }
-    </style>
 
 
-</head>
-<body>z
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-4 text-gray-800">Doctor Schedule Management</h1>
 
-<?php
- session_start();
-
- if(isset($_SESSION["user"])){
-        if(($_SESSION["user"])=="" or $_SESSION['usertype']!='S'){
-            header("location: ../login.php");
-        }else{
-            $useremail=$_SESSION["user"];
-        }
-
-    }else{
-        header("location: ../login.php");
-    }
-
-    include("../database/db_connect.php");
-
-    if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-    $sqlmain= "select * from student where semail=?";
-    $stmt = $conn->prepare($sqlmain);
-    $stmt->bind_param("s",$useremail);
-    $stmt->execute();
-    $userrow = $stmt->get_result();
-    $userfetch=$userrow->fetch_assoc();
-    $userid= $userfetch["sid"];
-    $username=$userfetch["sname"];
-
-
-?>
-
-    <div class="container">
-        <div class="menu">
-            <table class="menu-container" border="0">
-                <tr>
-                    <td style="padding:10px" colspan="2">
-                        <table border="0" class="profile-container">
-                            <tr>
-                                <td width="30%" style="padding-left:20px" >
-                                    <img src="../img/user.png" alt="" width="100%" style="border-radius:50%">
-                                </td>
-                                <td style="padding:0px;margin:0px;">
-                                    <p class="profile-title"><?php echo substr($username,0,13)  ?>..</p>
-                                    <p class="profile-subtitle"><?php echo substr($useremail,0,22)  ?></p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <a href="../logout.php" ><input type="button" value="Log out" class="logout-btn btn-primary-soft btn"></a>
-                                </td>
-                            </tr>
-                    </table>
-                    </td>
-                </tr>
-                <tr class="menu-row" >
-                    <td class="menu-btn menu-icon-home menu-active menu-icon-home-active" >
-                        <a href="index.php" class="non-style-link-menu non-style-link-menu-active"><div><p class="menu-text">Home</p></a></div></a>
-                    </td>
-                </tr>
-                <tr class="menu-row">
-                    <td class="menu-btn menu-icon-doctor">
-                        <a href="tutors.php" class="non-style-link-menu"><div><p class="menu-text">All Tutors</p></a></div>
-                    </td>
-                </tr>
-
-                <tr class="menu-row" >
-                    <td class="menu-btn menu-icon-session">
-                        <a href="schedule.php" class="non-style-link-menu"><div><p class="menu-text">Scheduled Sessions</p></div></a>
-                    </td>
-                </tr>
-                <tr class="menu-row" >
-                    <td class="menu-btn menu-icon-appoinment">
-                        <a href="appointment.php" class="non-style-link-menu"><div><p class="menu-text">My Appointment</p></a></div>
-                    </td>
-                </tr>
-                <tr class="menu-row" >
-                    <td class="menu-btn menu-icon-settings">
-                        <a href="settings.php" class="non-style-link-menu"><div><p class="menu-text">Settings</p></a></div>
-                    </td>
-                </tr>
-
-            </table>
-        </div>
-        <div class="dash-body" style="margin-top: 15px">
-            <table border="0" width="100%" style=" border-spacing: 0;margin:0;padding:0;" >
-
-                        <tr >
-
-                            <td colspan="1" class="nav-bar" >
-                            <p style="font-size: 23px;padding-left:12px;font-weight: 600;margin-left:20px;">Home</p>
-
-                            </td>
-                            <td width="25%">
-
-                            </td>
-                            <td width="15%">
-                                <p style="font-size: 14px;color: rgb(119, 119, 119);padding: 0;margin: 0;text-align: right;">
-                                    Today's Date
-                                </p>
-                                <p class="heading-sub12" style="padding: 0;margin: 0;">
-                                    <?php
-                               date_default_timezone_set('US/Eastern');
-
-                                $today = date('Y-m-d');
-                                echo $today;
-
-
-                                $studentrow = $conn->query("select  * from  student;");
-                                $tutorrow = $conn->query("select  * from  tutor;");
-                                $appointmentrow = $conn->query("select  * from  appointment where appodate>='$today';");
-                                $schedulerow = $conn->query("select  * from  schedule where scheduledate='$today';");
-
-
-                                ?>
-                                </p>
-                            </td>
-                            <td width="10%">
-                                <button  class="btn-label"  style="display: flex;justify-content: center;align-items: center;"><img src="../img/calendar.svg" width="100%"></button>
-                            </td>
-
-
-                        </tr>
-                <tr>
-                    <td colspan="4" >
-
-                    <center>
-                    <table class="filter-container doctor-header patient-header" style="border: none;width:95%" border="0" >
-                    <tr>
-                        <td >
-                            <h3>Welcome!</h3>
-                            <h1><?php echo $username  ?>.</h1>
-                            <p>Looking for a Tutor Online? no problem let's jumping to
-                                <a href="tutors.php" class="non-style-link"><b>"All Tutors"</b></a> section or
-                                <a href="schedule.php" class="non-style-link"><b>"Sessions"</b> </a><br>
-                                Track your past and future appointments history.<br>Also find out the expected appointment time of your Tutor.<br><br>
-                            </p>
-
-                            <h3>Search a Tutor Here</h3>
-                            <form action="schedule.php" method="post" style="display: flex">
-
-                                <input type="search" name="search" class="input-text "
-                                placeholder="Search Tutors and We will Find The Session Available" list="tutors" style="width:45%;">&nbsp;&nbsp;
-                                <?php
-                                    echo '<datalist id="tutors">';
-                                    $list11 = $conn->query("select  tutorname,tutoremail from  tutor;");
-
-                                    for ($y=0;$y<$list11->num_rows;$y++){
-                                        $row00=$list11->fetch_assoc();
-                                        $d=$row00["tutorname"];
-
-                                        echo "<option value='$d'><br/>";
-                                    };
-
-                                echo ' </datalist>';
-    ?>
-
-
-                                <input type="Submit" value="Search" class="login-btn btn-primary btn" style="padding-left: 25px;padding-right: 25px;padding-top: 10px;padding-bottom: 10px;">
-
-                            <br>
-                            <br>
-
-                        </td>
-                    </tr>
-                    </table>
-                    </center>
-
-                </td>
-                </tr>
-                <tr>
-                    <td colspan="4">
-                        <table border="0" width="100%">
-                            <tr>
-                                <td width="50%">
-
-
-
-
-
-
-                                    <center>
-                                        <table class="filter-container" style="border: none;" border="0">
-                                            <tr>
-                                                <td colspan="4">
-                                                    <p style="font-size: 20px;font-weight:600;padding-left: 12px;">Status</p>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="width: 25%;">
-                                                    <div  class="dashboard-items"  style="padding:20px;margin:auto;width:95%;display: flex">
-                                                        <div>
-                                                                <div class="h1-dashboard">
-                                                                    <?php    echo $tutorrow->num_rows  ?>
-                                                                </div><br>
-                                                                <div class="h3-dashboard">
-                                                                    All Tutors &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                                </div>
-                                                        </div>
-                                                                <div class="btn-icon-back dashboard-icons" style="background-image: url('../img/icons/doctors-hover.svg');"></div>
-                                                    </div>
-                                                </td>
-                                                <td style="width: 25%;">
-                                                    <div  class="dashboard-items"  style="padding:20px;margin:auto;width:95%;display: flex;">
-                                                        <div>
-                                                                <div class="h1-dashboard">
-                                                                    <?php    echo $studentrow->num_rows  ?>
-                                                                </div><br>
-                                                                <div class="h3-dashboard">
-                                                                    Students &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                                </div>
-                                                        </div>
-                                                                <div class="btn-icon-back dashboard-icons" style="background-image: url('../img/icons/patients-hover.svg');"></div>
-                                                    </div>
-                                                </td>
-                                                </tr>
-                                                <tr>
-                                                <td style="width: 25%;">
-                                                    <div  class="dashboard-items"  style="padding:20px;margin:auto;width:95%;display: flex; ">
-                                                        <div>
-                                                                <div class="h1-dashboard" >
-                                                                    <?php    echo $appointmentrow ->num_rows  ?>
-                                                                </div><br>
-                                                                <div class="h3-dashboard" >
-                                                                    NewAppointment &nbsp;&nbsp;
-                                                                </div>
-                                                        </div>
-                                                                <div class="btn-icon-back dashboard-icons" style="margin-left: 0px;background-image: url('../img/icons/book-hover.svg');"></div>
-                                                    </div>
-
-                                                </td>
-
-                                                <td style="width: 25%;">
-                                                    <div  class="dashboard-items"  style="padding:20px;margin:auto;width:95%;display: flex;padding-top:21px;padding-bottom:21px;">
-                                                        <div>
-                                                                <div class="h1-dashboard">
-                                                                    <?php    echo $schedulerow ->num_rows  ?>
-                                                                </div><br>
-                                                                <div class="h3-dashboard" style="font-size: 15px">
-                                                                    Today's Appointment
-                                                                </div>
-                                                        </div>
-                                                                <div class="btn-icon-back dashboard-icons" style="background-image: url('../img/icons/session-iceblue.svg');"></div>
-                                                    </div>
-                                                </td>
-
-                                            </tr>
-                                        </table>
-                                    </center>
-
-
-
-
-
-
-
-
-                                </td>
-                                <td>
-
-
-
-                                    <p style="font-size: 20px;font-weight:600;padding-left: 40px;" class="anime">Your Upcoming Appointment</p>
-                                    <center>
-                                        <div class="abc scroll" style="height: 250px;padding: 0;margin: 0;">
-                                        <table width="85%" class="sub-table scrolldown" border="0" >
-                                        <thead>
-
+                    <!-- DataTales Example -->
+                    <span id="message"></span>
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                        	<div class="row">
+                            	<div class="col">
+                            		<h6 class="m-0 font-weight-bold text-primary">Doctor Schedule List</h6>
+                            	</div>
+                            	<div class="col" align="right">
+                            		<button type="button" name="add_exam" id="add_doctor_schedule" class="btn btn-success btn-circle btn-sm"><i class="fas fa-plus"></i></button>
+                            	</div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="doctor_schedule_table" width="100%" cellspacing="0">
+                                    <thead>
                                         <tr>
-                                        <th class="table-headin">
-
-                                                    Appoint. Number
-
-                                                    </th>
-                                                <th class="table-headin">
-
-
-                                                 Title
-
-                                                </th>
-
-                                                <th class="table-headin">
-                                                    Tutor
-                                                </th>
-                                                <th class="table-headin">
-
-                                                    Sheduled Date & Time
-
-                                                </th>
-
-                                                </tr>
-                                        </thead>
-                                        <tbody>
-
                                             <?php
-                                            $nextweek=date("Y-m-d",strtotime("+1 week"));
-                                                $sqlmain= "select * from schedule inner join appointment on schedule.scheduleid=appointment.scheduleid inner join student on student.sid=appointment.sid inner join tutor on schedule.tutorid=tutor.tutorid  where  student.sid=$userid  and schedule.scheduledate>='$today' order by schedule.scheduledate asc";
-                                                //echo $sqlmain;
-                                                $result= $conn->query($sqlmain);
-
-                                                if($result->num_rows==0){
-                                                    echo '<tr>
-                                                    <td colspan="4">
-                                                    <br><br><br><br>
-                                                    <center>
-                                                    <img src="../img/notfound.svg" width="25%">
-
-                                                    <br>
-                                                    <p class="heading-main12" style="margin-left: 45px;font-size:20px;color:rgb(49, 49, 49)">Nothing to show here!</p>
-                                                    <a class="non-style-link" href="schedule.php"><button  class="login-btn btn-primary-soft btn"  style="display: flex;justify-content: center;align-items: center;margin-left:20px;">&nbsp; Channel a Doctor &nbsp;</font></button>
-                                                    </a>
-                                                    </center>
-                                                    <br><br><br><br>
-                                                    </td>
-                                                    </tr>';
-
-                                                }
-                                                else{
-                                                for ( $x=0; $x<$result->num_rows;$x++){
-                                                    $row=$result->fetch_assoc();
-                                                    $scheduleid=$row["scheduleid"];
-                                                    $title=$row["title"];
-                                                    $apponum=$row["apponum"];
-                                                    $docname=$row["tutorname"];
-                                                    $scheduledate=$row["scheduledate"];
-                                                    $scheduletime=$row["scheduletime"];
-
-                                                    echo '<tr>
-                                                        <td style="padding:30px;font-size:25px;font-weight:700;"> &nbsp;'.
-                                                        $apponum
-                                                        .'</td>
-                                                        <td style="padding:20px;"> &nbsp;'.
-                                                        substr($title,0,30)
-                                                        .'</td>
-                                                        <td>
-                                                        '.substr($docname,0,20).'
-                                                        </td>
-                                                        <td style="text-align:center;">
-                                                            '.substr($scheduledate,0,10).' '.substr($scheduletime,0,5).'
-                                                        </td>
-
-
-
-                                                    </tr>';
-
-                                                }
-                                            }
-
+                                            if($_SESSION['type'] == 'Admin')
+                                            {
                                             ?>
+                                            <th>Doctor Name</th>
+                                            <?php
+                                            }
+                                            ?>
+                                            <th>Schedule Date</th>
+                                            <th>Schedule Day</th>
+                                            <th>Start Time</th>
+                                            <th>End Time</th>
+                                            <th>Consulting Time</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
 
-                                            </tbody>
+                <?php
+                include('footer.php');
+                ?>
 
-                                        </table>
-                                        </div>
-                                        </center>
+<div id="doctor_scheduleModal" class="modal fade">
+  	<div class="modal-dialog">
+    	<form method="post" id="doctor_schedule_form">
+      		<div class="modal-content">
+        		<div class="modal-header">
+          			<h4 class="modal-title" id="modal_title">Add Doctor Schedule</h4>
+          			<button type="button" class="close" data-dismiss="modal">&times;</button>
+        		</div>
+        		<div class="modal-body">
+        			<span id="form_message"></span>
+                    <?php
+                    if($_SESSION['type'] == 'Admin')
+                    {
+                    ?>
+                    <div class="form-group">
+                        <label>Select Doctor</label>
+                        <select name="doctor_id" id="doctor_id" class="form-control" required>
+                            <option value="">Select Doctor</option>
+                            <?php
+                            $object->query = "
+                            SELECT * FROM doctor_table 
+                            WHERE doctor_status = 'Active' 
+                            ORDER BY doctor_name ASC
+                            ";
 
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                <tr>
-            </table>
-        </div>
-    </div>
+                            $result = $object->get_result();
 
+                            foreach($result as $row)
+                            {
 
-</body>
-</html>
+                                echo '
+                                <option value="'.$row["doctor_id"].'">'.$row["doctor_name"].'</option>
+                                ';
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <?php
+                    }
+                    ?>
+                    <div class="form-group">
+                        <label>Schedule Date</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1"><i class="fa fa-calendar"></i></span>
+                            </div>
+                            <input type="text" name="doctor_schedule_date" id="doctor_schedule_date" class="form-control" required readonly />
+                        </div>
+                    </div>
+		          	<div class="form-group">
+		          		<label>Start Time</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1"><i class="fas fa-clock"></i></span>
+                            </div>
+		          		    <input type="text" name="doctor_schedule_start_time" id="doctor_schedule_start_time" class="form-control datetimepicker-input" data-toggle="datetimepicker" data-target="#doctor_schedule_start_time" required onkeydown="return false" onpaste="return false;" ondrop="return false;" autocomplete="off" />
+                        </div>
+		          	</div>
+                    <div class="form-group">
+                        <label>End Time</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1"><i class="fas fa-clock"></i></span>
+                            </div>
+                            <input type="text" name="doctor_schedule_end_time" id="doctor_schedule_end_time" class="form-control datetimepicker-input" data-toggle="datetimepicker" data-target="#doctor_schedule_end_time" required onkeydown="return false" onpaste="return false;" ondrop="return false;" autocomplete="off" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Average Consulting Time</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1"><i class="fas fa-clock"></i></span>
+                            </div>
+                            <select name="average_consulting_time" id="average_consulting_time" class="form-control" required>
+                                <option value="">Select Consulting Duration</option>
+                                <?php
+                                $count = 0;
+                                for($i = 1; $i <= 15; $i++)
+                                {
+                                    $count += 5;
+                                    echo '<option value="'.$count.'">'.$count.' Minute</option>';
+                                }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+        		</div>
+        		<div class="modal-footer">
+          			<input type="hidden" name="hidden_id" id="hidden_id" />
+          			<input type="hidden" name="action" id="action" value="Add" />
+          			<input type="submit" name="submit" id="submit_button" class="btn btn-success" value="Add" />
+          			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        		</div>
+      		</div>
+    	</form>
+  	</div>
+</div>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.0/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/js/tempusdominus-bootstrap-4.min.js" integrity="sha512-k6/Bkb8Fxf/c1Tkyl39yJwcOZ1P4cRrJu77p83zJjN2Z55prbFHxPs9vN7q3l3+tSMGPDdoH51AEU8Vgo1cgAA==" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/css/tempusdominus-bootstrap-4.min.css" integrity="sha512-3JRrEUwaCkFUBLK1N8HehwQgu8e23jTH4np5NHOmQOobuC4ROQxFwFgBLTnhcnQRMs84muMh0PnnwXlPq5MGjg==" crossorigin="anonymous" />
+
+<script>
+$(document).ready(function(){
+
+	var dataTable = $('#doctor_schedule_table').DataTable({
+		"processing" : true,
+		"serverSide" : true,
+		"order" : [],
+		"ajax" : {
+			url:"doctor_schedule_action.php",
+			type:"POST",
+			data:{action:'fetch'}
+		},
+		"columnDefs":[
+			{
+                <?php
+                if($_SESSION['type'] == 'Admin')
+                {
+                ?>
+                "targets":[6, 7],
+                <?php
+                }
+                else
+                {
+                ?>
+                "targets":[5, 6],
+                <?php
+                }
+                ?>
+				
+				"orderable":false,
+			},
+		],
+	});
+
+    var date = new Date();
+    date.setDate(date.getDate());
+
+    $('#doctor_schedule_date').datepicker({
+        startDate: date,
+        format: "yyyy-mm-dd",
+        autoclose: true
+    });
+
+    $('#doctor_schedule_start_time').datetimepicker({
+        format: 'HH:mm'
+    });
+
+    $('#doctor_schedule_end_time').datetimepicker({
+        useCurrent: false,
+        format: 'HH:mm'
+    });
+
+    $("#doctor_schedule_start_time").on("change.datetimepicker", function (e) {
+        console.log('test');
+        $('#doctor_schedule_end_time').datetimepicker('minDate', e.date);
+    });
+
+    $("#doctor_schedule_end_time").on("change.datetimepicker", function (e) {
+        $('#doctor_schedule_start_time').datetimepicker('maxDate', e.date);
+    });
+
+	$('#add_doctor_schedule').click(function(){
+		
+		$('#doctor_schedule_form')[0].reset();
+
+		$('#doctor_schedule_form').parsley().reset();
+
+    	$('#modal_title').text('Add Doctor Schedule Data');
+
+    	$('#action').val('Add');
+
+    	$('#submit_button').val('Add');
+
+    	$('#doctor_scheduleModal').modal('show');
+
+    	$('#form_message').html('');
+
+	});
+
+	$('#doctor_schedule_form').parsley();
+
+	$('#doctor_schedule_form').on('submit', function(event){
+		event.preventDefault();
+		if($('#doctor_schedule_form').parsley().isValid())
+		{		
+			$.ajax({
+				url:"doctor_schedule_action.php",
+				method:"POST",
+				data:$(this).serialize(),
+				dataType:'json',
+				beforeSend:function()
+				{
+					$('#submit_button').attr('disabled', 'disabled');
+					$('#submit_button').val('wait...');
+				},
+				success:function(data)
+				{
+					$('#submit_button').attr('disabled', false);
+					if(data.error != '')
+					{
+						$('#form_message').html(data.error);
+						$('#submit_button').val('Add');
+					}
+					else
+					{
+						$('#doctor_scheduleModal').modal('hide');
+						$('#message').html(data.success);
+						dataTable.ajax.reload();
+
+						setTimeout(function(){
+
+				            $('#message').html('');
+
+				        }, 5000);
+					}
+				}
+			})
+		}
+	});
+
+	$(document).on('click', '.edit_button', function(){
+
+		var doctor_schedule_id = $(this).data('id');
+
+		$('#doctor_schedule_form').parsley().reset();
+
+		$('#form_message').html('');
+
+		$.ajax({
+
+	      	url:"doctor_schedule_action.php",
+
+	      	method:"POST",
+
+	      	data:{doctor_schedule_id:doctor_schedule_id, action:'fetch_single'},
+
+	      	dataType:'JSON',
+
+	      	success:function(data)
+	      	{
+                <?php
+                if($_SESSION['type'] == 'Admin')
+                {
+                ?>
+                $('#doctor_id').val(data.doctor_id);
+                <?php
+                }
+                ?>
+	        	$('#doctor_schedule_date').val(data.doctor_schedule_date);
+
+                $('#doctor_schedule_start_time').val(data.doctor_schedule_start_time);
+
+                $('#doctor_schedule_end_time').val(data.doctor_schedule_end_time);
+
+	        	$('#modal_title').text('Edit Doctor Schedule Data');
+
+	        	$('#action').val('Edit');
+
+	        	$('#submit_button').val('Edit');
+
+	        	$('#doctor_scheduleModal').modal('show');
+
+	        	$('#hidden_id').val(doctor_schedule_id);
+
+	      	}
+
+	    })
+
+	});
+
+	$(document).on('click', '.status_button', function(){
+		var id = $(this).data('id');
+    	var status = $(this).data('status');
+		var next_status = 'Active';
+		if(status == 'Active')
+		{
+			next_status = 'Inactive';
+		}
+		if(confirm("Are you sure you want to "+next_status+" it?"))
+    	{
+
+      		$.ajax({
+
+        		url:"doctor_schedule_action.php",
+
+        		method:"POST",
+
+        		data:{id:id, action:'change_status', status:status, next_status:next_status},
+
+        		success:function(data)
+        		{
+
+          			$('#message').html(data);
+
+          			dataTable.ajax.reload();
+
+          			setTimeout(function(){
+
+            			$('#message').html('');
+
+          			}, 5000);
+
+        		}
+
+      		})
+
+    	}
+	});
+
+	$(document).on('click', '.delete_button', function(){
+
+    	var id = $(this).data('id');
+
+    	if(confirm("Are you sure you want to remove it?"))
+    	{
+
+      		$.ajax({
+
+        		url:"doctor_schedule_action.php",
+
+        		method:"POST",
+
+        		data:{id:id, action:'delete'},
+
+        		success:function(data)
+        		{
+
+          			$('#message').html(data);
+
+          			dataTable.ajax.reload();
+
+          			setTimeout(function(){
+
+            			$('#message').html('');
+
+          			}, 5000);
+
+        		}
+
+      		})
+
+    	}
+
+  	});
+
+});
+</script>

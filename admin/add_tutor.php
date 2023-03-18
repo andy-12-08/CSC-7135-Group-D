@@ -27,6 +27,17 @@
 session_start();
 include '../sendemail/checkmail.php';
 include( "../database/db_connect.php" );
+	
+if (isset($_POST['logout'])) { // Check if the logout button is clicked
+    session_unset(); // Unset all session variables
+    session_destroy(); // Destroy the session
+    header('location: ../login.php'); // Redirect to the login page
+    exit();
+}
+
+	
+	
+	
 if ( isset( $_SESSION[ "user" ] ) ) {
   if ( ( $_SESSION[ "user" ] ) == ""
     or $_SESSION[ 'usertype' ] != 'A' ) {
@@ -69,7 +80,7 @@ $appointmentrow = $conn->query( "SELECT IFNULL(COUNT(*), 0) AS num_appointments
 	$num_appointments = $row['num_appointments']; 
 
 	$appointmentcount = $num_appointments;
-    $schedulerow = $conn->query( "SELECT IFNULL(COUNT(*), 0) AS num_schedule
+$schedulerow = $conn->query( "SELECT IFNULL(COUNT(*), 0) AS num_schedule
 	FROM schedule
 	WHERE scheduledate >= CURDATE();");
 
