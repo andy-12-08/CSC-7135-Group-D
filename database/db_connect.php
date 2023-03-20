@@ -1,13 +1,13 @@
 <?php
-  $servername = "mysqldatabase.cncyjoyafhkj.us-east-1.rds.amazonaws.com";
-  $username = "admin";
-  $password = "SEgroupd";
-  $dbname = "tutor_online";
+//  $servername = "mysqldatabase.cncyjoyafhkj.us-east-1.rds.amazonaws.com";
+//  $username = "admin";
+//  $password = "SEgroupd";
+//  $dbname = "localhost";
 
-//   $servername = "localhost";
-//   $username = "root";
-//   $password = "";
-//   $dbname = "tutor_online";
+   $servername = "localhost";
+   $username = "root";
+   $password = "";
+   $dbname = "doctor_appointment";
 
   // Create connection
  
@@ -22,4 +22,4 @@
   else{
  // echo "Database Connected";
   }
-?>
+?> 

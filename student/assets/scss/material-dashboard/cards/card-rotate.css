@@ -1,7 +1,7 @@
 /*
 Error: Undefined mixin 'perspective'.
-        on line 2 of C:\xampp\htdocs\tutoronline\student\assets\scss\material-dashboard\cards\card-rotate.scss, in `perspective'
-        from line 2 of C:\xampp\htdocs\tutoronline\student\assets\scss\material-dashboard\cards\card-rotate.scss
+        on line 2 of C:\xampp\htdocs\website\student\assets\scss\material-dashboard\cards\card-rotate.scss, in `perspective'
+        from line 2 of C:\xampp\htdocs\website\student\assets\scss\material-dashboard\cards\card-rotate.scss
 
 1: .rotating-card-container {
 2:   @include perspective(800px);
@@ -12,8 +12,8 @@ Error: Undefined mixin 'perspective'.
 7: 
 
 Backtrace:
-C:\xampp\htdocs\tutoronline\student\assets\scss\material-dashboard\cards\card-rotate.scss:2:in `perspective'
-C:\xampp\htdocs\tutoronline\student\assets\scss\material-dashboard\cards\card-rotate.scss:2
+C:\xampp\htdocs\website\student\assets\scss\material-dashboard\cards\card-rotate.scss:2:in `perspective'
+C:\xampp\htdocs\website\student\assets\scss\material-dashboard\cards\card-rotate.scss:2
 D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:348:in `block in visit_mixin'
 D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/stack.rb:98:in `block in with_mixin'
 D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/stack.rb:135:in `with_frame'
@@ -61,4 +61,4 @@ D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/bin/sass:23:in
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined mixin 'perspective'.\A         on line 2 of C:\xampp\htdocs\tutoronline\student\assets\scss\material-dashboard\cards\card-rotate.scss, in `perspective'\A         from line 2 of C:\xampp\htdocs\tutoronline\student\assets\scss\material-dashboard\cards\card-rotate.scss\A \A 1: .rotating-card-container {\A 2:   @include perspective(800px);\A 3: \A 4:   .card-rotate {\A 5:     background: transparent;\A 6:     box-shadow: none;\A 7: "; }
+  content: "Error: Undefined mixin 'perspective'.\A         on line 2 of C:\xampp\htdocs\website\student\assets\scss\material-dashboard\cards\card-rotate.scss, in `perspective'\A         from line 2 of C:\xampp\htdocs\website\student\assets\scss\material-dashboard\cards\card-rotate.scss\A \A 1: .rotating-card-container {\A 2:   @include perspective(800px);\A 3: \A 4:   .card-rotate {\A 5:     background: transparent;\A 6:     box-shadow: none;\A 7: "; }

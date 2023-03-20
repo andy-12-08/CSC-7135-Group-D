@@ -1,7 +1,7 @@
 /*
 Error: Undefined variable: "$gray-100".
-        on line 2 of C:/xampp/htdocs/tutoronline/student/assets/scss/material-dashboard/variables/_navbar-vertical.scss
-        from line 22 of C:\xampp\htdocs\tutoronline\student\assets\scss\material-dashboard\theme.scss
+        on line 2 of C:/xampp/htdocs/website/student/assets/scss/material-dashboard/variables/_navbar-vertical.scss
+        from line 22 of C:\xampp\htdocs\website\student\assets\scss\material-dashboard\theme.scss
 
 1: /*!
 2: 
@@ -12,8 +12,8 @@ Error: Undefined variable: "$gray-100".
 7: * Product Page: https://www.creative-tim.com/product/material-dashboard
 
 Backtrace:
-C:/xampp/htdocs/tutoronline/student/assets/scss/material-dashboard/variables/_navbar-vertical.scss:2
-C:\xampp\htdocs\tutoronline\student\assets\scss\material-dashboard\theme.scss:22
+C:/xampp/htdocs/website/student/assets/scss/material-dashboard/variables/_navbar-vertical.scss:2
+C:\xampp\htdocs\website\student\assets\scss\material-dashboard\theme.scss:22
 D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/script/tree/variable.rb:49:in `_perform'
 D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/script/tree/node.rb:50:in `perform'
 D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/script/tree/funcall.rb:182:in `perform_arg'
@@ -69,4 +69,4 @@ D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/bin/sass:23:in
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$gray-100\".\A         on line 2 of C:/xampp/htdocs/tutoronline/student/assets/scss/material-dashboard/variables/_navbar-vertical.scss\A         from line 22 of C:\xampp\htdocs\tutoronline\student\assets\scss\material-dashboard\theme.scss\A \A 1: /*!\A 2: \A 3: =========================================================\A 4: * Material Dashboard 2 - v3.0.5\A 5: =========================================================\A 6: \A 7: * Product Page: https://www.creative-tim.com/product/material-dashboard"; }
+  content: "Error: Undefined variable: \"$gray-100\".\A         on line 2 of C:/xampp/htdocs/website/student/assets/scss/material-dashboard/variables/_navbar-vertical.scss\A         from line 22 of C:\xampp\htdocs\website\student\assets\scss\material-dashboard\theme.scss\A \A 1: /*!\A 2: \A 3: =========================================================\A 4: * Material Dashboard 2 - v3.0.5\A 5: =========================================================\A 6: \A 7: * Product Page: https://www.creative-tim.com/product/material-dashboard"; }

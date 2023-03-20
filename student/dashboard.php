@@ -1,4 +1,23 @@
+<?php
 
+//profile.php
+
+
+
+include('class/Appointment.php');
+
+$object = new Appointment;
+
+$object->query = "
+SELECT * FROM patient_table 
+WHERE patient_id = '".$_SESSION["patient_id"]."'
+";
+
+$result = $object->get_result();
+
+include('header.php');
+
+?>
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-4 text-gray-800">Doctor Schedule Management</h1>
