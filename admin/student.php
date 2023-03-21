@@ -21,7 +21,7 @@ include('header.php');
 ?>
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Student Management</h1>
+                    <h1 class="h3 mb-4 text-gray-800">Student Dashboard</h1>
 
                     <!-- DataTales Example -->
                     <span id="message"></span>
