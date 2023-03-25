@@ -82,7 +82,7 @@ if(isset($_POST["action"]))
 			$sub_array[] = '
 			<div align="center">
 			<button type="button" name="view_button" class="btn btn-info btn-circle btn-sm view_button" data-id="'.$row["student_id"].'"><i class="fas fa-eye"></i></button>
-			<button type="button" name="edit_button" class="btn btn-warning btn-circle btn-sm edit_button" data-id="'.$row["student_id"].'"><i class="fas fa-edit"></i></button>
+
 			<button type="button" name="delete_button" class="btn btn-danger btn-circle btn-sm delete_button" data-id="'.$row["student_id"].'"><i class="fas fa-times"></i></button>
 			</div>
 			';
@@ -206,7 +206,7 @@ if(isset($_POST["action"]))
 	{
 		$object->query = "
 		SELECT * FROM student_table 
-		WHERE student_id = '".$_POST["student_id"]."'
+		WHERE student_id = '".$_POST["patient_id"]."'
 		";
 
 		$result = $object->get_result();

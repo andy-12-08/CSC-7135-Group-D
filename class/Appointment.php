@@ -152,7 +152,7 @@ class Appointment
 	function get_total_patient()
 	{
 		$this->query = "
-		SELECT * FROM patient_table 
+		SELECT * FROM student_table 
 		";
 		$this->execute();
 		return $this->row_count();

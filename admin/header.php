@@ -102,6 +102,13 @@
                     <i class="far fa-id-card"></i>
                     <span>Profile</span></a>
             </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="../ChatApp/users.php">
+                    <i class="far fa-id-card"></i>
+                    <span>Chat</span></a>
+            </li>
+
             <?php
             } 
             else
@@ -112,6 +119,13 @@
                     <i class="far fa-id-card"></i>
                     <span>Profile</span></a>
             </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="tutor_profile.php">
+                    <i class="far fa-id-card"></i>
+                    <span>Chat</span></a>
+            </li>
+
             <?php
             }
             ?>

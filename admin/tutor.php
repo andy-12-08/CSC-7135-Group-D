@@ -280,7 +280,7 @@ $(document).ready(function(){
                 $('#doctor_degree').val(data.doctor_degree);
                 $('#doctor_expert_in').val(data.doctor_expert_in);
 
-	        	$('#modal_title').text('Edit Doctor');
+	        	$('#modal_title').text('Edit Tutor');
 
 	        	$('#action').val('Edit');
 

@@ -3,7 +3,7 @@
 //doctor_action.php
 
 include('../class/Appointment.php');
-
+include ('../sendemail/mail.php');
 $object = new Appointment;
 
 if(isset($_POST["action"]))
@@ -173,6 +173,8 @@ if(isset($_POST["action"]))
 
 			if($error == '')
 			{
+				$ran_id = rand(time(), 100000000);
+				send_tutor_email($_POST["doctor_email_address"], $_POST["doctor_name"]);
 				$data = array(
 					':doctor_email_address'			=>	$object->clean_input($_POST["doctor_email_address"]),
 					':doctor_password'				=>	$_POST["doctor_password"],
@@ -185,6 +187,7 @@ if(isset($_POST["action"]))
 					':doctor_expert_in'				=>	$object->clean_input($_POST["doctor_expert_in"]),
 					':doctor_status'				=>	'Active',
 					':doctor_added_on'				=>	$object->now
+					
 				);
 
 				$object->query = "
@@ -192,10 +195,28 @@ if(isset($_POST["action"]))
 				(tutor_email_address, tutor_password, tutor_name, tutor_profile_image, tutor_phone_no, tutor_address, tutor_date_of_birth, tutor_degree, tutor_expert_in, tutor_status, tutor_added_on) 
 				VALUES (:doctor_email_address, :doctor_password, :doctor_name, :doctor_profile_image, :doctor_phone_no, :doctor_address, :doctor_date_of_birth, :doctor_degree, :doctor_expert_in, :doctor_status, :doctor_added_on)
 				";
-
 				$object->execute($data);
 
+
+				$data2 = array(
+					':unique_id' => $ran_id,
+					':doctor_email_address' => $object->clean_input($_POST["doctor_email_address"]),
+					':doctor_profile_image' => $doctor_profile_image,
+					':online_status' => 'Offline now'
+				);
+
+				
+	            $object->query = "
+				INSERT INTO users (unique_id, email, img, status)
+				VALUES (:unique_id, :doctor_email_address, :doctor_profile_image,:online_status)
+				";
+				$object->execute($data2);
+
+
 				$success = '<div class="alert alert-success">Tutor Added</div>';
+				
+	
+				
 			}
 		}
 

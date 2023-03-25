@@ -95,7 +95,7 @@ include('header.php');
                             foreach($result as $row)
                             {
                                 echo '
-                                <option value="'.$row["doctor_id"].'">'.$row["doctor_name"].'</option>
+                                <option value="'.$row["tutor_id"].'">'.$row["tutor_name"].'</option>
                                 ';
                             }
                             ?>
@@ -292,6 +292,8 @@ $(document).ready(function(){
 
 		var doctor_schedule_id = $(this).data('id');
 
+		alert(doctor_schedule_id);
+
 		$('#doctor_schedule_form').parsley().reset();
 
 		$('#form_message').html('');
@@ -318,7 +320,8 @@ $(document).ready(function(){
                 <?php
                 }
                 ?>
-	        	$('#doctor_schedule_date').val(data.doctor_schedule_date);
+              
+
 
                 $('#doctor_schedule_start_time').val(data.doctor_schedule_start_time);
 
