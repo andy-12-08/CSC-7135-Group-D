@@ -4,7 +4,7 @@
 
 class Appointment
 {
-	public $base_url = 'http://localhost/website/';
+	public $base_url = 'http://phpapplication-env.eba-mrbqpmvh.us-east-1.elasticbeanstalk.com/';
 	public $connect;
 	public $query;
 	public $statement;
@@ -12,7 +12,7 @@ class Appointment
 
 	public function __construct()
 	{
-		$this->connect = new PDO("mysql:host=localhost;dbname=doctor_appointment", "root", "");
+		$this->connect = new PDO("mysql:host=mysqldatabase.cncyjoyafhkj.us-east-1.rds.amazonaws.com;dbname=tutor_online", "admin", "SEgroupd");
 
 		date_default_timezone_set('Asia/Dhaka');
 

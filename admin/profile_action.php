@@ -119,19 +119,19 @@ if($_POST["action"] == 'admin_profile')
 
 	$success = '';
 
-	$hospital_logo = $_POST['hidden_hospital_logo'];
+	$admin_logo = $_POST['hidden_admin_logo'];
 
-	if($_FILES['hospital_logo']['name'] != '')
+	if($_FILES['admin_logo']['name'] != '')
 	{
 		$allowed_file_format = array("jpg", "png");
 
-	    $file_extension = pathinfo($_FILES["hospital_logo"]["name"], PATHINFO_EXTENSION);
+	    $file_extension = pathinfo($_FILES["admin_logo"]["name"], PATHINFO_EXTENSION);
 
 	    if(!in_array($file_extension, $allowed_file_format))
 		{
 		    $error = "<div class='alert alert-danger'>Upload valiid file. jpg, png</div>";
 		}
-		else if (($_FILES["hospital_logo"]["size"] > 2000000))
+		else if (($_FILES["admin_logo"]["size"] > 2000000))
 		{
 		   $error = "<div class='alert alert-danger'>File size exceeds 2MB</div>";
 	    }
@@ -141,9 +141,9 @@ if($_POST["action"] == 'admin_profile')
 
 			$destination = '../images/' . $new_name;
 
-			move_uploaded_file($_FILES['hospital_logo']['tmp_name'], $destination);
+			move_uploaded_file($_FILES['admin_logo']['tmp_name'], $destination);
 
-			$hospital_logo = $destination;
+			$admin_logo = $destination;
 		}
 	}
 
@@ -153,10 +153,10 @@ if($_POST["action"] == 'admin_profile')
 			':admin_email_address'			=>	$object->clean_input($_POST["admin_email_address"]),
 			':admin_password'				=>	$_POST["admin_password"],
 			':admin_name'					=>	$object->clean_input($_POST["admin_name"]),
-			':hospital_name'				=>	$object->clean_input($_POST["hospital_name"]),
-			':hospital_address'				=>	$object->clean_input($_POST["hospital_address"]),
-			':hospital_contact_no'			=>	$object->clean_input($_POST["hospital_contact_no"]),
-			':hospital_logo'				=>	$hospital_logo
+			':uni_name'				        =>	$object->clean_input($_POST["uni_name"]),
+			':uni_address'				    =>	$object->clean_input($_POST["uni_address"]),
+			':admin_contact_no'			    =>	$object->clean_input($_POST["admin_contact_no"]),
+			':admin_logo'				    =>	$admin_logo
 		);
 
 		$object->query = "
@@ -164,10 +164,10 @@ if($_POST["action"] == 'admin_profile')
 		SET admin_email_address = :admin_email_address, 
 		admin_password = :admin_password, 
 		admin_name = :admin_name, 
-		hospital_name = :hospital_name, 
-		hospital_address = :hospital_address, 
-		hospital_contact_no = :hospital_contact_no, 
-		hospital_logo = :hospital_logo 
+		uni_name = :uni_name, 
+		uni_address = :uni_address, 
+		admin_contact_no = :admin_contact_no, 
+		admin_logo = :admin_logo 
 		WHERE admin_id = '".$_SESSION["admin_id"]."'
 		";
 		$object->execute($data);
@@ -180,10 +180,10 @@ if($_POST["action"] == 'admin_profile')
 			'admin_email_address'	=>	$_POST["admin_email_address"],
 			'admin_password'		=>	$_POST["admin_password"],
 			'admin_name'			=>	$_POST["admin_name"], 
-			'hospital_name'			=>	$_POST["hospital_name"],
-			'hospital_address'		=>	$_POST["hospital_address"],
-			'hospital_contact_no'	=>	$_POST["hospital_contact_no"],
-			'hospital_logo'			=>	$hospital_logo
+			'uni_name'			    =>	$_POST["uni_name"],
+			'uni_address'		    =>	$_POST["uni_address"],
+			'admin_contact_no'	    =>	$_POST["admin_contact_no"],
+			'admin_logo'			=>	$admin_logo
 		);
 
 		echo json_encode($output);
