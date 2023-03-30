@@ -31,8 +31,8 @@ include('class/Appointment.php');
 
 $object = new Appointment;
 $object->query = "
-SELECT * FROM patient_table 
-WHERE patient_id = '".$_SESSION["patient_id"]."'
+SELECT * FROM student_table 
+WHERE student_id = '".$_SESSION["patient_id"]."'
 ";
 
 $result = $object->get_result();
@@ -334,27 +334,27 @@ $result = $object->get_result();
                             <!--<img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user1">-->
                           </div>
                           <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm"><?php echo $row["patient_first_name"] . ' ' . $row["patient_last_name"]; ?></h6>
+                            <h6 class="mb-0 text-sm"><?php echo $row["student_first_name"] . ' ' . $row["student_last_name"]; ?></h6>
                            
                           </div>
                         </div>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0"><?php echo $row["patient_address"]; ?></p>
+                        <p class="text-xs font-weight-bold mb-0"><?php echo $row["student_address"]; ?></p>
                         
                       </td>
                       <td class="align-middle text-center text-sm">
-                        <span class="badge badge-sm bg-gradient-success"><?php echo $row["patient_phone_no"]; ?></span>
+                        <span class="badge badge-sm bg-gradient-success"><?php echo $row["student_phone_no"]; ?></span>
                       </td>
 						
 						
                       <td class="align-middle text-center">
-                        <span class="text-secondary text-xs font-weight-bold"><?php echo $row["patient_date_of_birth"]; ?></span>
+                        <span class="text-secondary text-xs font-weight-bold"><?php echo $row["student_date_of_birth"]; ?></span>
                       </td>
 						
 						
 					   <td class="align-middle text-center">
-                        <span class="text-secondary text-xs font-weight-bold"><?php echo $row["patient_email_address"]; ?></span>
+                        <span class="text-secondary text-xs font-weight-bold"><?php echo $row["student_email_address"]; ?></span>
                       </td>
 						
             

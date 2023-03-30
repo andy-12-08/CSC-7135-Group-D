@@ -150,28 +150,29 @@ if(isset($_POST["action"]))
 	{
 		$output = array();
 
-		$order_column = array('doctor_table.doctor_name', 'doctor_table.doctor_degree', 'doctor_table.doctor_expert_in', 'doctor_schedule_table.doctor_schedule_date', 'doctor_schedule_table.doctor_schedule_day', 'doctor_schedule_table.doctor_schedule_start_time');
+		$order_column = array('tutor_table.tutor_name', 'tutor_table.tutor_degree', 'tutor_table.tutor_expert_in',
+		 'tutor_schedule_table.tutor_schedule_date', 'tutor_schedule_table.tutor_schedule_day', 'tutor_schedule_table.tutor_schedule_start_time');
 		
 		$main_query = "
-		SELECT * FROM doctor_schedule_table 
-		INNER JOIN doctor_table 
-		ON doctor_table.doctor_id = doctor_schedule_table.doctor_id 
+		SELECT * FROM tutor_schedule_table 
+		INNER JOIN tutor_table 
+		ON tutor_table.tutor_id = tutor_schedule_table.tutor_id 
 		";
 
 		$search_query = '
-		WHERE doctor_schedule_table.doctor_schedule_date >= "'.date('Y-m-d').'" 
-		AND doctor_schedule_table.doctor_schedule_status = "Active" 
-		AND doctor_table.doctor_status = "Active" 
+		WHERE tutor_schedule_table.tutor_schedule_date >= "'.date('Y-m-d').'" 
+		AND tutor_schedule_table.tutor_schedule_status = "Active" 
+		AND tutor_table.tutor_status = "Active" 
 		';
 
 		if(isset($_POST["search"]["value"]))
 		{
-			$search_query .= 'AND ( doctor_table.doctor_name LIKE "%'.$_POST["search"]["value"].'%" ';
-			$search_query .= 'OR doctor_table.doctor_degree LIKE "%'.$_POST["search"]["value"].'%" ';
-			$search_query .= 'OR doctor_table.doctor_expert_in LIKE "%'.$_POST["search"]["value"].'%" ';
-			$search_query .= 'OR doctor_schedule_table.doctor_schedule_date LIKE "%'.$_POST["search"]["value"].'%" ';
-			$search_query .= 'OR doctor_schedule_table.doctor_schedule_day LIKE "%'.$_POST["search"]["value"].'%" ';
-			$search_query .= 'OR doctor_schedule_table.doctor_schedule_start_time LIKE "%'.$_POST["search"]["value"].'%") ';
+			$search_query .= 'AND ( tutor_table.tutor_name LIKE "%'.$_POST["search"]["value"].'%" ';
+			$search_query .= 'OR tutor_table.tutor_degree LIKE "%'.$_POST["search"]["value"].'%" ';
+			$search_query .= 'OR tutor_table.tutor_expert_in LIKE "%'.$_POST["search"]["value"].'%" ';
+			$search_query .= 'OR tutor_schedule_table.tutor_schedule_date LIKE "%'.$_POST["search"]["value"].'%" ';
+			$search_query .= 'OR tutor_schedule_table.tutor_schedule_day LIKE "%'.$_POST["search"]["value"].'%" ';
+			$search_query .= 'OR tutor_schedule_table.tutor_schedule_start_time LIKE "%'.$_POST["search"]["value"].'%") ';
 		}
 		
 		if(isset($_POST["order"]))
@@ -180,7 +181,7 @@ if(isset($_POST["action"]))
 		}
 		else
 		{
-			$order_query = 'ORDER BY doctor_schedule_table.doctor_schedule_date ASC ';
+			$order_query = 'ORDER BY tutor_schedule_table.tutor_schedule_date ASC ';
 		}
 
 		$limit_query = '';
@@ -212,21 +213,21 @@ if(isset($_POST["action"]))
 		{
 			$sub_array = array();
 
-			$sub_array[] = $row["doctor_name"];
+			$sub_array[] = $row["tutor_name"];
 
-			$sub_array[] = $row["doctor_degree"];
+			$sub_array[] = $row["tutor_degree"];
 
-			$sub_array[] = $row["doctor_expert_in"];
+			$sub_array[] = $row["tutor_expert_in"];
 
-			$sub_array[] = $row["doctor_schedule_date"];
+			$sub_array[] = $row["tutor_schedule_date"];
 
-			$sub_array[] = $row["doctor_schedule_day"];
+			$sub_array[] = $row["tutor_schedule_day"];
 
-			$sub_array[] = $row["doctor_schedule_start_time"];
+			$sub_array[] = $row["tutor_schedule_start_time"];
 
 			$sub_array[] = '
 			<div align="center">
-			<button type="button" name="get_appointment" class="btn btn-success btn-sm get_appointment" data-doctor_id="'.$row["doctor_id"].'" data-doctor_schedule_id="'.$row["doctor_schedule_id"].'">Get Appointment</button>
+			<button type="button" name="get_appointment" class="btn btn-success btn-sm get_appointment" data-doctor_id="'.$row["tutor_id"].'" data-doctor_schedule_id="'.$row["tutor_schedule_id"].'">Get Appointment</button>
 			</div>
 			';
 			$data[] = $sub_array;
@@ -278,17 +279,17 @@ if(isset($_POST["action"]))
 	if($_POST['action'] == 'make_appointment')
 	{
 		$object->query = "
-		SELECT * FROM patient_table 
-		WHERE patient_id = '".$_SESSION["patient_id"]."'
+		SELECT * FROM student_table 
+		WHERE student_id = '".$_SESSION["student_id"]."'
 		";
 
 		$patient_data = $object->get_result();
 
 		$object->query = "
-		SELECT * FROM doctor_schedule_table 
-		INNER JOIN doctor_table 
-		ON doctor_table.doctor_id = doctor_schedule_table.doctor_id 
-		WHERE doctor_schedule_table.doctor_schedule_id = '".$_POST["doctor_schedule_id"]."'
+		SELECT * FROM tutor_schedule_table 
+		INNER JOIN tutor_table 
+		ON tutor_table.tutor_id = tutor_schedule_table.tutor_id 
+		WHERE tutor_schedule_table.tutor_schedule_id = '".$_POST["tutor_schedule_id"]."'
 		";
 
 		$doctor_schedule_data = $object->get_result();
@@ -303,15 +304,15 @@ if(isset($_POST["action"]))
 			$html .= '
 			<tr>
 				<th width="40%" class="text-right">Student Name</th>
-				<td>'.$patient_row["patient_first_name"].' '.$patient_row["patient_last_name"].'</td>
+				<td>'.$patient_row["student_first_name"].' '.$patient_row["student_last_name"].'</td>
 			</tr>
 			<tr>
 				<th width="40%" class="text-right">Contact No.</th>
-				<td>'.$patient_row["patient_phone_no"].'</td>
+				<td>'.$patient_row["student_phone_no"].'</td>
 			</tr>
 			<tr>
 				<th width="40%" class="text-right">Address</th>
-				<td>'.$patient_row["patient_address"].'</td>
+				<td>'.$patient_row["student_address"].'</td>
 			</tr>
 			';
 		}
@@ -327,19 +328,19 @@ if(isset($_POST["action"]))
 			$html .= '
 			<tr>
 				<th width="40%" class="text-right">Tutor Name</th>
-				<td>'.$doctor_schedule_row["doctor_name"].'</td>
+				<td>'.$doctor_schedule_row["tutor_name"].'</td>
 			</tr>
 			<tr>
 				<th width="40%" class="text-right">Appointment Date</th>
-				<td>'.$doctor_schedule_row["doctor_schedule_date"].'</td>
+				<td>'.$doctor_schedule_row["tutor_schedule_date"].'</td>
 			</tr>
 			<tr>
 				<th width="40%" class="text-right">Appointment Day</th>
-				<td>'.$doctor_schedule_row["doctor_schedule_day"].'</td>
+				<td>'.$doctor_schedule_row["tutor_schedule_day"].'</td>
 			</tr>
 			<tr>
 				<th width="40%" class="text-right">Available Time</th>
-				<td>'.$doctor_schedule_row["doctor_schedule_start_time"].' - '.$doctor_schedule_row["doctor_schedule_end_time"].'</td>
+				<td>'.$doctor_schedule_row["tutor_schedule_start_time"].' - '.$doctor_schedule_row["tutor_schedule_end_time"].'</td>
 			</tr>
 			';
 		}
@@ -359,8 +360,8 @@ if(isset($_POST["action"]))
 
 		$object->query = "
 		SELECT * FROM appointment_table 
-		WHERE patient_id = :patient_id 
-		AND doctor_schedule_id = :doctor_schedule_id
+		WHERE student_id = :patient_id 
+		AND tutor_schedule_id = :doctor_schedule_id
 		";
 
 		$object->execute($data);
@@ -372,15 +373,15 @@ if(isset($_POST["action"]))
 		else
 		{
 			$object->query = "
-			SELECT * FROM doctor_schedule_table 
-			WHERE doctor_schedule_id = '".$_POST['hidden_doctor_schedule_id']."'
+			SELECT * FROM tutor_schedule_table 
+			WHERE tutor_schedule_id = '".$_POST['hidden_doctor_schedule_id']."'
 			";
 
 			$schedule_data = $object->get_result();
 
 			$object->query = "
 			SELECT COUNT(appointment_id) AS total FROM appointment_table 
-			WHERE doctor_schedule_id = '".$_POST['hidden_doctor_schedule_id']."' 
+			WHERE tutor_schedule_id = '".$_POST['hidden_doctor_schedule_id']."' 
 			";
 
 			$appointment_data = $object->get_result();
@@ -391,9 +392,9 @@ if(isset($_POST["action"]))
 
 			foreach($schedule_data as $schedule_row)
 			{
-				$end_time = strtotime($schedule_row["doctor_schedule_end_time"] . ':00');
+				$end_time = strtotime($schedule_row["tutor_schedule_end_time"] . ':00');
 
-				$start_time = strtotime($schedule_row["doctor_schedule_start_time"] . ':00');
+				$start_time = strtotime($schedule_row["tutor_schedule_start_time"] . ':00');
 
 				$total_doctor_available_minute = ($end_time - $start_time) / 60;
 
@@ -434,7 +435,7 @@ if(isset($_POST["action"]))
 
 			$object->query = "
 			INSERT INTO appointment_table 
-			(doctor_id, patient_id, doctor_schedule_id, appointment_number, reason_for_appointment, appointment_time, status) 
+			(tutor_id, tutor_id, tutor_schedule_id, appointment_number, reason_for_appointment, appointment_time, status) 
 			VALUES (:doctor_id, :patient_id, :doctor_schedule_id, :appointment_number, :reason_for_appointment, :appointment_time, :status)
 			";
 
@@ -450,28 +451,30 @@ if(isset($_POST["action"]))
 	{
 		$output = array();
 
-		$order_column = array('appointment_table.appointment_number','doctor_table.doctor_name', 'doctor_schedule_table.doctor_schedule_date', 'appointment_table.appointment_time', 'doctor_schedule_table.doctor_schedule_day', 'appointment_table.status');
+		$order_column = array('appointment_table.appointment_number','tutor_table.tutor_name', 
+		'tutor_schedule_table.tutor_schedule_date', 'appointment_table.appointment_time', 'tutor_schedule_table.tutor_schedule_day', 
+		'appointment_table.status');
 		
 		$main_query = "
 		SELECT * FROM appointment_table  
-		INNER JOIN doctor_table 
-		ON doctor_table.doctor_id = appointment_table.doctor_id 
-		INNER JOIN doctor_schedule_table 
-		ON doctor_schedule_table.doctor_schedule_id = appointment_table.doctor_schedule_id 
+		INNER JOIN tutor_table 
+		ON tutor_table.tutor_id = appointment_table.tutor_id 
+		INNER JOIN tutor_schedule_table 
+		ON tutor_schedule_table.tutor_schedule_id = appointment_table.tutor_schedule_id 
 		
 		";
 
 		$search_query = '
-		WHERE appointment_table.patient_id = "'.$_SESSION["patient_id"].'" 
+		WHERE appointment_table.tutor_id = "'.$_SESSION["patient_id"].'" 
 		';
 
 		if(isset($_POST["search"]["value"]))
 		{
 			$search_query .= 'AND ( appointment_table.appointment_number LIKE "%'.$_POST["search"]["value"].'%" ';
-			$search_query .= 'OR doctor_table.doctor_name LIKE "%'.$_POST["search"]["value"].'%" ';
-			$search_query .= 'OR doctor_schedule_table.doctor_schedule_date LIKE "%'.$_POST["search"]["value"].'%" ';
+			$search_query .= 'OR tutor_table.tutor_name LIKE "%'.$_POST["search"]["value"].'%" ';
+			$search_query .= 'OR tutor_schedule_table.tutor_schedule_date LIKE "%'.$_POST["search"]["value"].'%" ';
 			$search_query .= 'OR appointment_table.appointment_time LIKE "%'.$_POST["search"]["value"].'%" ';
-			$search_query .= 'OR doctor_schedule_table.doctor_schedule_day LIKE "%'.$_POST["search"]["value"].'%" ';
+			$search_query .= 'OR tutor_schedule_table.tutor_schedule_day LIKE "%'.$_POST["search"]["value"].'%" ';
 			$search_query .= 'OR appointment_table.status LIKE "%'.$_POST["search"]["value"].'%") ';
 		}
 		
@@ -515,13 +518,13 @@ if(isset($_POST["action"]))
 
 			$sub_array[] = $row["appointment_number"];
 
-			$sub_array[] = $row["doctor_name"];
+			$sub_array[] = $row["tutor_name"];
 
-			$sub_array[] = $row["doctor_schedule_date"];			
+			$sub_array[] = $row["tutor_schedule_date"];			
 
 			$sub_array[] = $row["appointment_time"];
 
-			$sub_array[] = $row["doctor_schedule_day"];
+			$sub_array[] = $row["tutor_schedule_day"];
 
 			$status = '';
 
