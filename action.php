@@ -23,17 +23,25 @@ if(isset($_POST["action"]))
 	if($_POST['action'] == 'patient_register')
 	{
 		$error = '';
-
 		$success = '';
-
 		$data = array(
 			':patient_email_address'	=>	$_POST["patient_email_address"]
 		);
-
 		$object->query = "
 		SELECT * FROM student_table 
 		WHERE student_email_address = :patient_email_address
 		";
+
+
+		$password =$_POST["patient_password"];
+		$options = [
+            'memory_cost' => 1<<17,
+            'time_cost' => 4,
+            'threads' => 2,
+            ];
+        $hash = password_hash($password,  PASSWORD_ARGON2I, $options);
+
+
 
 		$object->execute($data);
 
@@ -46,7 +54,7 @@ if(isset($_POST["action"]))
 			$patient_verification_code = md5(uniqid());
 			$data = array(
 				':patient_email_address'		=>	$object->clean_input($_POST["patient_email_address"]),
-				':patient_password'				=>	$_POST["patient_password"],
+				':patient_password'				=>	$hash,
 				':patient_first_name'			=>	$object->clean_input($_POST["patient_first_name"]),
 				':patient_last_name'			=>	$object->clean_input($_POST["patient_last_name"]),
 				':patient_date_of_birth'		=>	$object->clean_input($_POST["patient_date_of_birth"]),
@@ -114,11 +122,17 @@ if(isset($_POST["action"]))
 			{
 				if($row["email_verify"] == 'Yes')
 				{
-					if($row["student_password"] == $_POST["patient_password"])
+					//if($row["student_password"] == $_POST["patient_password"])
+
+					if (password_verify($_POST["patient_password"], $row["student_password"]))
 					{
 						$_SESSION['patient_id'] = $row['student_id'];
 						$_SESSION['patient_name'] = $row['student_first_name'] . ' ' . $row['student_last_name'];
 					}
+
+
+
+
 					else
 					{
 						$error = '<div class="alert alert-danger">Wrong Password</div>';

@@ -1,11 +1,13 @@
 <?php
-
-//login.php
-
 include('header.php');
-
+function checkEmailDomain($email, $domain) {
+	if (preg_match("/@".$domain."$/", $email)) {
+	  return true;
+	} else {
+	  return false;
+	}
+  }
 ?>
-
 
 <div class="content">
    <div class="container">
@@ -25,11 +27,13 @@ include('header.php');
                         	<form method="post" id="patient_register_form">
 						<div class="form-group">
 							<label>Student Email Address<span class="text-danger">*</span></label>
-							<input type="text" name="patient_email_address" id="patient_email_address" class="form-control" required autofocus data-parsley-type="email" data-parsley-trigger="keyup" />
+							<input type="text" name="patient_email_address" id="patient_email_address" class="form-control" 
+							required autofocus placeholder="example@lsu.edu" pattern="^[A-Za-z0-9._%+-]+@lsu\.edu$" data-parsley-trigger="keyup" />
 						</div>
 						<div class="form-group">
 							<label>Student Password<span class="text-danger">*</span></label>
 							<input type="password" name="patient_password" id="patient_password" class="form-control" required  data-parsley-trigger="keyup" />
+							<p id="error" class="text-danger" style="display:none">Invalid email. Please use an email ending with '@lsu.edu'.</p>
 						</div>
 						<div class="row">
 							<div class="col-md-6">
@@ -126,6 +130,18 @@ $(document).ready(function(){
 	$('#patient_register_form').on('submit', function(event){
 
 		event.preventDefault();
+
+		var emailInput = document.getElementById("patient_email_address");
+            var errorElement = document.getElementById("error");
+            var email = emailInput.value;
+
+            if (email.endsWith("@lsu.edu")) {
+                errorElement.style.display = "none"; // Hide the error message
+                // Proceed with form submission or other tasks
+            } else {
+                errorElement.style.display = "block"; // Show the error message
+            }
+
 
 		if($('#patient_register_form').parsley().isValid())
 		{
