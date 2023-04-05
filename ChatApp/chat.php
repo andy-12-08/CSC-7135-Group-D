@@ -1,3 +1,35 @@
+<style>
+body{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: #483d8b !important;
+  padding: 0 10px;
+}
+
+.typing-area button{
+  color: #fff;
+  width: 55px;
+  border: none;
+  outline: none;
+  background: #483d8b !important;
+  font-size: 19px;
+  cursor: pointer;
+  opacity: 0.7;
+  pointer-events: none;
+  border-radius: 0 5px 5px 0;
+  transition: all 0.3s ease;
+}
+
+
+
+.outgoing .details p {
+    background: #483d8b !important;
+}
+  </style>
+
+
 <?php 
   session_start();
   include_once "php/config.php";
@@ -20,9 +52,9 @@
           }
         ?>
         <a href="users.php" class="back-icon"><i class="fas fa-arrow-left"></i></a>
-        <img src="php/images/<?php echo $row['img']; ?>" alt="">
+        <img src="../images/<?php echo $row['img']; ?>" alt="">
         <div class="details">
-          <span><?php echo $row['fname']. " " . $row['lname'] ?></span>
+          <span><?php echo $row['fname']. "-" . $row['lname'] ?></span>
           <p><?php echo $row['status']; ?></p>
         </div>
       </header>

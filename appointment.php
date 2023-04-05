@@ -284,7 +284,7 @@ $object = new Appointment;
 						<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">Appointment Time</th>
 						<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">Appointment Day</th>
 						<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">Appointment Status</th>
-						<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">Download</th>
+						<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">Rating</th>
 						</tr>
 						</thead>
 
@@ -325,32 +325,51 @@ $(document).ready(function(){
 		},
 		"columnDefs":[
 			{
-                "targets":[6, 6],				
+         "targets":[6, 6],				
 				"orderable":false,
 			},
 		],
 	});
 
-	$(document).on('click', '.cancel_appointment', function(){
-		var appointment_id = $(this).data('id');
-		if(confirm("Are you sure you want to cancel this appointment?"))
-		{
-			$.ajax({
-				url:"action.php",
-				method:"POST",
-				data:{appointment_id:appointment_id, action:'cancel_appointment'},
-				success:function(data)
-				{
-					$('#message').html(data);
-					dataTable.ajax.reload();
-					setTimeout(function(){
+
+	
+  $(document).on('click', '.cancel_appointment', function(){
+    var appointment_id = $(this).data('id');
+    var appointment_status = $(this).data('status');
+    var tutor_id = $(this).data('tutor_id');
+    var student_id = $(this).data('student_id');
+
+
+    alert(tutor_id);
+    alert(student_id);
+    if(appointment_status == "Completed")
+    {
+        var rating = prompt("Please enter a rating (1-5):", "");
+        if (rating !== null && !isNaN(rating) && rating >= 1 && rating <= 5) {
+            $.ajax({
+                url:"action.php",
+                method:"POST",
+                data:{appointment_id:appointment_id, action:'cancel_appointment', rating: rating,tutor_id:tutor_id,student_id:student_id},
+                success:function(data)
+                {
+                    $('#message').html(data);
+                    dataTable.ajax.reload();
+                    setTimeout(function(){
                         $('#message').html('');
                     }, 5000);
-				}
-			})
-		}
-	});
-	
+                }
+            });
+        } else {
+            alert("Invalid rating. Please enter a number between 1 and 5.");
+        }
+    } else{
+      alert("You can not rate your professor, Appointment is not Completed ");
+    }
+});
+
+
+
+
 
 });
 

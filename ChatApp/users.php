@@ -1,19 +1,57 @@
+<style>
+#wrapper {
+    display: flex;
+    width: -webkit-fill-available !important;
+}
+</style>
+
+
 <?php 
-  session_start();
+ // session_start();
   include_once "php/config.php";
   // if(!isset($_SESSION['unique_id'])){
   //   header("location: login.php");
   // }
+  include('../class/Appointment.php');
+
+  $object = new Appointment;
+   $_SESSION['admin_id'];
+   $_SESSION['type'];
+
+  if ($_SESSION['type'] =='Admin'){
+    $_SESSION['unique_id']='1327219325';
+  }else if($_SESSION['type'] =='Doctor'){
+   // echo $_SESSION['admin_id'];
+
+    $user_id = mysqli_real_escape_string($conn, $_SESSION['admin_id']);
+    //$sql = mysqli_query($conn, "SELECT * FROM users WHERE unique_id = {$user_id}");
+  
+    $sql = mysqli_query($conn, "SELECT a.unique_id,a.email,b.tutor_id,b.tutor_email_address
+    from users a, tutor_table b
+    where a.user_id =b.tutor_id
+    and b.tutor_id = {$user_id} ");
+    if(mysqli_num_rows($sql) > 0){
+      $row = mysqli_fetch_assoc($sql);
+    }
+
+    $_SESSION['unique_id']=$row['unique_id'];
+  }
+
 ?>
-<?php include_once "header.php"; ?>
+<?php include_once "header.php"; 
+
+include('../admin/chat_header.php');
+?>
 <body>
-  <div class="wrapper">
+
+<div class ="main-container">
+
+<div class="wrapper">
     <section class="users">
       <header>
         <div class="content">
           <?php 
 
-             $_SESSION['unique_id']='1327219325';
             $sql = mysqli_query($conn, "SELECT * FROM users WHERE unique_id = {$_SESSION['unique_id']}");
             if(mysqli_num_rows($sql) > 0){
               $row = mysqli_fetch_assoc($sql);
@@ -21,11 +59,10 @@
           ?>
           <img src="../images/<?php echo $row['img']; ?>" alt="">
           <div class="details">
-            <span><?php echo $row['fname']. " " . $row['lname'] ?></span>
-            <p><?php echo $row['status']; ?></p>
+            <span><?php echo $row['fname']. "-" . $row['lname'] ?></span>
+            <p><?php echo "Online"; ?></p>
           </div>
         </div>
-        <a href="../admin/dashboard.php" class="logout">Dashboard</a>
       </header>
       <div class="search">
         <span class="text">Select an user to start chat</span>
@@ -36,7 +73,12 @@
   
       </div>
     </section>
-  </div>
+</div>
+          
+
+
+</div>
+
 
   <script src="javascript/users.js"></script>
 

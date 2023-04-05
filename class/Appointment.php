@@ -4,7 +4,8 @@
 
 class Appointment
 {
-	public $base_url = 'http://phpapplication-env.eba-mrbqpmvh.us-east-1.elasticbeanstalk.com/';
+	//public $base_url = 'http://phpapplication-env.eba-mrbqpmvh.us-east-1.elasticbeanstalk.com/';
+	public $base_url = 'http://localhost/andrewgit/';
 	public $connect;
 	public $query;
 	public $statement;
@@ -290,6 +291,12 @@ class Appointment
 		{
 			return $row["Total"];
 		}
+	}
+
+	  function execute_query_and_fetch($query, $params = array()) {
+		$this->query($query);
+		$this->execute($params);
+		return $this->fetch(PDO::FETCH_ASSOC);
 	}
 
 }

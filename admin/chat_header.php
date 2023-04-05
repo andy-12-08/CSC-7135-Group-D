@@ -51,7 +51,9 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     
                 </div>
-                <?php echo ($_SESSION['type'] == 'Admin') ? '<i class="fa-solid fa-a"></i><div class="sidebar-brand-text mx-3">Admin</div>' : '<div class="sidebar-brand-text mx-3">Tutor</div>' ?>
+<!--                <i class="fas fa-laugh-wink"></i>-->
+				<i class="fa-solid fa-a"></i>
+                <div class="sidebar-brand-text mx-3">Admin</div>
             </a>
 
             <!-- Divider -->
@@ -63,17 +65,17 @@
             {
             ?>
             <li class="nav-item">
-                <a class="nav-link" href="dashboard.php">
+                <a class="nav-link" href="../admin/dashboard.php">
                     <i class="fas fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="tutor.php">
+                <a class="nav-link" href="../admin/tutor.php">
                     <i class="fas fa-user-md"></i>
                     <span>Tutor</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="student.php">
+                <a class="nav-link" href="../admin/student.php">
                     <i class="fas fa-procedures"></i>
                     <span>Student</span></a>
             </li>
@@ -81,13 +83,13 @@
             }
             ?>
             <li class="nav-item">
-                <a class="nav-link" href="tutor_schedule.php">
+                <a class="nav-link" href="../admin/tutor_schedule.php">
                     <i class="fas fa-user-clock"></i>
                     <span>Tutor Schedule</span></a>
             </li>
             
             <li class="nav-item">
-                <a class="nav-link" href="appointment.php">
+                <a class="nav-link" href="../admin/appointment.php">
                     <i class="fas fa-notes-medical"></i>
                     <span>Appointment</span></a>
             </li>
@@ -96,7 +98,7 @@
             {
             ?>
             <li class="nav-item">
-                <a class="nav-link" href="profile.php">
+                <a class="nav-link" href="../admin/profile.php">
                     <i class="far fa-id-card"></i>
                     <span>Profile</span></a>
             </li>
@@ -113,7 +115,7 @@
             {
             ?>
             <li class="nav-item">
-                <a class="nav-link" href="tutor_profile.php">
+                <a class="nav-link" href="../admin/tutor_profile.php">
                     <i class="far fa-id-card"></i>
                     <span>Profile</span></a>
             </li>

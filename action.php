@@ -294,7 +294,7 @@ if(isset($_POST["action"]))
 	{
 		$object->query = "
 		SELECT * FROM student_table 
-		WHERE student_id = '".$_SESSION["student_id"]."'
+		WHERE student_id = '".$_SESSION["patient_id"]."'
 		";
 
 		$patient_data = $object->get_result();
@@ -303,7 +303,7 @@ if(isset($_POST["action"]))
 		SELECT * FROM tutor_schedule_table 
 		INNER JOIN tutor_table 
 		ON tutor_table.tutor_id = tutor_schedule_table.tutor_id 
-		WHERE tutor_schedule_table.tutor_schedule_id = '".$_POST["tutor_schedule_id"]."'
+		WHERE tutor_schedule_table.tutor_schedule_id = '".$_POST["doctor_schedule_id"]."'
 		";
 
 		$doctor_schedule_data = $object->get_result();
@@ -449,7 +449,7 @@ if(isset($_POST["action"]))
 
 			$object->query = "
 			INSERT INTO appointment_table 
-			(tutor_id, tutor_id, tutor_schedule_id, appointment_number, reason_for_appointment, appointment_time, status) 
+			(tutor_id, student_id, tutor_schedule_id, appointment_number, reason_for_appointment, appointment_time, status) 
 			VALUES (:doctor_id, :patient_id, :doctor_schedule_id, :appointment_number, :reason_for_appointment, :appointment_time, :status)
 			";
 
@@ -479,7 +479,7 @@ if(isset($_POST["action"]))
 		";
 
 		$search_query = '
-		WHERE appointment_table.tutor_id = "'.$_SESSION["patient_id"].'" 
+		WHERE appointment_table.student_id = "'.$_SESSION["patient_id"].'" 
 		';
 
 		if(isset($_POST["search"]["value"]))
@@ -554,7 +554,7 @@ if(isset($_POST["action"]))
 
 			if($row["status"] == 'Completed')
 			{
-				$status = '<span class="badge badge-success">' . $row["status"] . '</span>';
+				$status = '<span class="badge badge-success" style="color:#4CAF50!important;">' . $row["status"] .'</span>';
 			}
 
 			if($row["status"] == 'Cancel')
@@ -564,9 +564,8 @@ if(isset($_POST["action"]))
 
 			$sub_array[] = $status;
 
-			$sub_array[] = '<a href="download.php?id='.$row["appointment_id"].'" class="btn btn-success btn-sm" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>';
+			$sub_array[] = '<button type="button" name="cancel_appointment" class="btn btn-danger btn-sm cancel_appointment" data-id="' . $row["appointment_id"] . '" data-status="' . $row["status"] . '" data-tutor_id="' . $row["tutor_id"] . '" data-student_id="' . $row["student_id"] . '"><i class="fas fa-times"></i></button>';
 
-			//$sub_array[] = '<button type="button" name="cancel_appointment" class="btn btn-danger btn-sm cancel_appointment" data-id="'.$row["appointment_id"].'"><i class="fas fa-times"></i></button>';
 
 			$data[] = $sub_array;
 		}
@@ -584,16 +583,21 @@ if(isset($_POST["action"]))
 	if($_POST['action'] == 'cancel_appointment')
 	{
 		$data = array(
-			':status'			=>	'Cancel',
-			':appointment_id'	=>	$_POST['appointment_id']
+			':appointment_id'	=>	$_POST['appointment_id'],
+			':rating'	        =>	$_POST['rating'],
+			':tutor_id'	        =>	$_POST['tutor_id'],
+			':student_id'	    =>	$_POST['student_id']
 		);
+
 		$object->query = "
-		UPDATE appointment_table 
-		SET status = :status 
-		WHERE appointment_id = :appointment_id
-		";
+			INSERT INTO tutor_rating 
+			(tutor_id, student_id, appointment_id, rating) 
+			VALUES (:tutor_id, :student_id, :appointment_id, :rating)
+			";
+
 		$object->execute($data);
-		echo '<div class="alert alert-success">Your Appointment has been Cancel</div>';
+		echo '<div class="alert alert-success">Tutor Rating is added.</div>';
+
 	}
 }
 
