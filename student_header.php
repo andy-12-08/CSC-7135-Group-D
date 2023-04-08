@@ -82,7 +82,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="../ChatApp/users.php">
+                <a class="nav-link" href="ChatApp/users.php">
                     <i class="far fa-id-card"></i>
                     <span>Chat</span></a>
             </li>

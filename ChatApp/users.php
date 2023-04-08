@@ -12,7 +12,8 @@
   include('../class/Appointment.php');
 
   $object = new Appointment;
-   $_SESSION['admin_id'];
+   //$_SESSION['admin_id'];
+
    $_SESSION['type'];
 
   if ($_SESSION['type'] =='Admin'){
@@ -29,12 +30,42 @@
     }
 
     $_SESSION['unique_id']=$row['unique_id'];
+  }else if($_SESSION['type'] =='Student'){
+
+    $_SESSION['type'];
+    $user_id= $_SESSION['patient_id'];
+
+
+    //echo $user_id = mysqli_real_escape_string($conn, $_SESSION['patient_id']);
+    $sql = mysqli_query($conn, "SELECT a.unique_id,a.email,b.student_id,b.student_email_address
+    from users a, student_table b
+    where a.user_id =b.student_id
+    and b.student_id = {$user_id}");
+    if(mysqli_num_rows($sql) > 0){
+    $row = mysqli_fetch_assoc($sql);
+    }
+
+    $_SESSION['unique_id']=$row['unique_id'];
   }
 
-?>
-<?php include_once "header.php"; 
 
-include('../admin/chat_header.php');
+
+
+
+?>
+<?php 
+if($_SESSION['type'] =='Student'){
+  include_once "header.php"; 
+  include('../admin/student_header.php');
+}
+
+else{
+  include_once "header.php"; 
+  include('../admin/chat_header.php');
+}
+
+
+
 ?>
 <body>
 

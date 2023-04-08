@@ -63,81 +63,34 @@
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
-            <!-- Nav Item - Dashboard -->
-            <?php
-            if($_SESSION['type'] == 'Admin')
-            {
-            ?>
             <li class="nav-item">
-                <a class="nav-link" href="../admin/dashboard.php">
-                    <i class="fas fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="../admin/tutor.php">
-                    <i class="fas fa-user-md"></i>
-                    <span>Tutor</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="../admin/student.php">
-                    <i class="fas fa-procedures"></i>
-                    <span>Student</span></a>
-            </li>
-            <?php
-            }
-            ?>
-            
-
-
-            <li class="nav-item">
-                <a class="nav-link" href="../admin/tutor_schedule.php">
+                <a class="nav-link" href="../dashboard.php">
                     <i class="fas fa-user-clock"></i>
-                    <span>Tutor Schedule</span></a>
+                    <span>Book Appoinment</span></a>
             </li>
             
             <li class="nav-item">
-                <a class="nav-link" href="../admin/appointment.php">
+                <a class="nav-link" href="../appointment.php">
                     <i class="fas fa-notes-medical"></i>
-                    <span>Appointment</span></a>
+                    <span>My Appointment</span></a>
             </li>
-
-
-
             <?php
-            if($_SESSION["type"] == 'Admin')
-            {
             ?>
             <li class="nav-item">
-                <a class="nav-link" href="../admin/profile.php">
+                <a class="nav-link" href="../profile.php">
                     <i class="far fa-id-card"></i>
                     <span>Profile</span></a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="../ChatApp/users.php">
+                <a class="nav-link" >
                     <i class="far fa-id-card"></i>
                     <span>Chat</span></a>
             </li>
+        
 
             <?php
-            } 
-            else
-            {
-            ?>
-            <li class="nav-item">
-                <a class="nav-link" href="../admin/tutor_profile.php">
-                    <i class="far fa-id-card"></i>
-                    <span>Profile</span></a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="../ChatApp/users.php">
-                    <i class="far fa-id-card"></i>
-                    <span>Chat</span></a>
-            </li>
-
-            <?php
-            }
+            
             ?>
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
@@ -175,39 +128,7 @@
                         $user_name = '';
                         $user_profile_image = '';
 
-                        if($_SESSION['type'] == 'Admin')
-                        {
-                            $object->query = "
-                            SELECT * FROM admin_table 
-                            WHERE admin_id = '".$_SESSION['admin_id']."'
-                            ";
-
-                            $user_result = $object->get_result();
-
-                            foreach($user_result as $row)
-                            {
-                                $user_name = $row['admin_name'];
-                                $user_profile_image = $row['admin_logo'];
-                            }
-                        }
-
-                        if($_SESSION['type'] == 'Doctor')
-                        {
-                            $object->query = "
-                            SELECT * FROM tutor_table 
-                            WHERE tutor_id = '".$_SESSION['admin_id']."'
-                            ";
-
-                            $user_result = $object->get_result();
-                            
-                            foreach($user_result as $row)
-                            {
-                                $user_name = $row['tutor_name'];
-                                $user_profile_image = $row['tutor_profile_image'];
-                            }
-                        }
-                        if($_SESSION['type'] == 'Student')
-                        {
+                    
                             $object->query = "
                             SELECT * FROM student_table 
                             WHERE student_id = '".$_SESSION['patient_id']."'
@@ -218,9 +139,10 @@
                             foreach($user_result as $row)
                             {
                                 $user_name = $row['student_first_name'].$row['student_last_name'];
-                                echo $user_profile_image = $row['admin_logo'];
+                                $user_profile_image = $row['admin_logo'];
+                                $user_profile_image = "../". $user_profile_image;
                             }
-                        }
+                        
 
 
 
