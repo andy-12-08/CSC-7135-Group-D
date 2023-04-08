@@ -127,51 +127,20 @@
     padding-top: 0.85em;
     display: none!important;
 }
-	table {
-  width: 100%;
-  border-collapse: collapse;
-  font-family: Arial, sans-serif;
-  color: #444;
-}
 
-/* Table header styles */
-th {
-  background-color: #f2f2f2;
-  text-transform: uppercase;
-  font-weight: bold;
-  padding: 10px 15px;
-  /*border: 1px solid #ccc;*/
-}
-
-/* Table cell styles */
-td {
-  padding: 10px 15px;
-  border: 1px solid #ccc;
-  vertical-align: middle;
-  font-size: 14px;
-}
-
-/* Row hover effect */
-tr:hover {
-  background-color: #f5f5f5;
-}
-
-/* Alternating row colors */
-tr:nth-child(even) {
-  background-color: #f9f9f9;
+.bg-gradient-primary{
+  background-image: linear-gradient(195deg, #483d8b 0%, #483d8b 100%) !important;
 }
 
 </style>
 
-
 <?php
-
 include('class/Appointment.php');
 $object = new Appointment;
-
+include('student_header.php');
 ?>
 
-<aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main">
+<!-- <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
       <a class="navbar-brand m-0" >
@@ -233,86 +202,13 @@ $object = new Appointment;
 		</ul>
     </div>
  
-  </aside>	
+  </aside>	 -->
 	
-<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">	
-
-<nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
-<div class="container-fluid py-1 px-3">
-<nav aria-label="breadcrumb">
-<ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-<li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Student</a></li>
-<li class="breadcrumb-item text-sm text-dark active" aria-current="page">Dashboard</li>
-</ol>
-<h6 class="font-weight-bolder mb-0">Dashboard</h6>
-</nav>
-
-</div>
-</nav>
-<!-- End Navbar -->
-<div class="container-fluid py-4">	 
-<div class="row">
-<div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-<div class="card">
-<div class="card-header p-3 pt-2">
-<div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
-<i class="material-icons opacity-10">weekend</i>
-</div>
-<div class="text-end pt-1">
-<p class="text-sm mb-0 text-capitalize">Total Tutors</p>
-<h4 class="mb-0"><?php   ?></h4>
-</div>
-</div>
 
 
-</div>
-</div>
-<div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-<div class="card">
-<div class="card-header p-3 pt-2">
-<div class="icon icon-lg icon-shape bg-gradient-primary shadow-primary text-center border-radius-xl mt-n4 position-absolute">
-<i class="material-icons opacity-10">person</i>
-</div>
-<div class="text-end pt-1">
-<p class="text-sm mb-0 text-capitalize">Total Students</p>
-<h4 class="mb-0"><?php       ?></h4>
-</div>
-</div>
 
 
-</div>
-</div>
-<div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-<div class="card">
-<div class="card-header p-3 pt-2">
-<div class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
-<i class="material-icons opacity-10">person</i>
-</div>
-<div class="text-end pt-1">
-<p class="text-sm mb-0 text-capitalize">New Appointments</p>
-<h4 class="mb-0"><?php     ?></h4>
-</div>
-</div>
-</div>
-</div>
-<div class="col-xl-3 col-sm-6">
-<div class="card">
-<div class="card-header p-3 pt-2">
-<div class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute">
-<i class="material-icons opacity-10">weekend</i>
-</div>
-<div class="text-end pt-1">
-<p class="text-sm mb-0 text-capitalize">Today's Appointment</p>
-<h4 class="mb-0"> <?php     ?></h4>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-
-
-<div class="container-fluid py-4">
+  <div class="container-fluid py-4">
 	<div class="row justify-content-md-center">
 		<div class="row">
 			<div class="col-12">
@@ -394,7 +290,6 @@ include('footer.php');
 
 
 <script>
-
 $(document).ready(function(){
 
 	var dataTable = $('#appointment_list_table').DataTable({
@@ -472,7 +367,6 @@ $(document).ready(function(){
 	})
 
 });
-
 </script>
 	
 	</body>

@@ -122,12 +122,12 @@ if(isset($_POST["action"]))
 			{
 				if($row["email_verify"] == 'Yes')
 				{
-					//if($row["student_password"] == $_POST["patient_password"])
-
+					
 					if (password_verify($_POST["patient_password"], $row["student_password"]))
 					{
 						$_SESSION['patient_id'] = $row['student_id'];
 						$_SESSION['patient_name'] = $row['student_first_name'] . ' ' . $row['student_last_name'];
+						$_SESSION['type'] = 'Student';
 					}
 
 
@@ -257,33 +257,119 @@ if(isset($_POST["action"]))
 		echo json_encode($output);
 	}
 
-	if($_POST['action'] == 'edit_profile')
+	if($_POST['action'] == 'student_profile')
 	{
-		$data = array(
-			':patient_password'			=>	$_POST["patient_password"],
-			':patient_first_name'		=>	$_POST["patient_first_name"],
-			':patient_last_name'		=>	$_POST["patient_last_name"],
-			':patient_date_of_birth'	=>	$_POST["patient_date_of_birth"],
-			':patient_gender'			=>	$_POST["patient_gender"],
-			':patient_address'			=>	$_POST["patient_address"],
-			':patient_phone_no'			=>	$_POST["patient_phone_no"],
-			':patient_maritial_status'	=>	$_POST["patient_maritial_status"]
+
+		if (isset($_FILES['admin_logo'])) {
+			error_log("Image received: " . print_r($_FILES['admin_logo'], true));
+		} else {
+			error_log("Image not received");
+		}
+
+		//sleep(2);
+
+		$error = '';
+	
+		$success = '';
+		
+		$admin_logo = $_POST['hidden_admin_logo'];
+
+		if($_FILES['admin_logo']['name'] != '')
+		{
+			$allowed_file_format = array("jpg", "png");
+	
+			$file_extension = pathinfo($_FILES["admin_logo"]["name"], PATHINFO_EXTENSION);
+	
+			if(!in_array($file_extension, $allowed_file_format))
+			{
+				$error = "<div class='alert alert-danger'>Upload valiid file. jpg, png</div>";
+			}
+			else if (($_FILES["admin_logo"]["size"] > 2000000))
+			{
+			   $error = "<div class='alert alert-danger'>File size exceeds 2MB</div>";
+			}
+			else
+			{
+				$new_name = rand() . '.' . $file_extension;
+	
+				$destination = 'images/' . $new_name;
+	
+				move_uploaded_file($_FILES['admin_logo']['tmp_name'], $destination);
+	
+				$admin_logo = $destination;
+			}
+		}
+
+
+		if($error == '')
+		{
+			$data = array(
+				':student_first_name'      =>  $_POST["student_first_name"],
+				':student_last_name'       =>  $_POST["student_last_name"],
+				':student_address'         =>  $_POST["student_address"],
+				':student_contact_no'      =>  $_POST["student_contact_no"],
+				':student_department'      =>  $_POST["student_department"],
+				':admin_logo'			=>	$admin_logo
+			);
+			
+	
+			file_put_contents('log.txt', "Received POST Data:\n" . var_export($_POST, true) . "\n", FILE_APPEND);
+			file_put_contents('log.txt', "Data array:\n" . var_export($data, true) . "\n", FILE_APPEND);
+	
+	
+			$object->query = "
+			UPDATE student_table  
+			SET student_first_name = :student_first_name, 
+			student_last_name = :student_last_name, 
+			student_address = :student_address, 
+			student_phone_no = :student_contact_no, 
+			student_maritial_status = :student_department ,
+			admin_logo = :admin_logo
+			WHERE student_id = '".$_SESSION['patient_id']."'
+		";
+			$object->execute($data);
+
+			$success = '<div class="alert alert-success">Admin Data Updated</div>';
+
+		$output = array(
+			'error'					=>	$error,
+			'success'				=>	$success,
+			'student_first_name'	=>	$_POST["student_first_name"],
+			'student_last_name'		=>	$_POST["student_last_name"],
+			'student_address'		=>	$_POST["student_address"], 
+			'student_contact_no'	=>	$_POST["student_contact_no"],
+			'student_department'	=>	$_POST["student_department"],
+			'admin_logo'			=>	$admin_logo
 		);
 
-		$object->query = "
-		UPDATE patient_table  
-		SET patient_password = :patient_password, 
-		patient_first_name = :patient_first_name, 
-		patient_last_name = :patient_last_name, 
-		patient_date_of_birth = :patient_date_of_birth, 
-		patient_gender = :patient_gender, 
-		patient_address = :patient_address, 
-		patient_phone_no = :patient_phone_no, 
-		patient_maritial_status = :patient_maritial_status 
-		WHERE patient_id = '".$_SESSION['patient_id']."'
-		";
+		echo json_encode($output);
 
-		$object->execute($data);
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
 
 		$_SESSION['success_message'] = '<div class="alert alert-success">Profile Data Updated</div>';
 

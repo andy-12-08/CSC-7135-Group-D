@@ -19,7 +19,7 @@
                     <div class="content">
                     <img src="../images/'. $row['img'] .'" alt="">
                     <div class="details">
-                        <span>'. $row['fname']. " " . $row['lname'] .'</span>
+                        <span>'. $row['fname']. "-" . $row['lname'] .'</span>
                         <p>'. $you . $msg .'</p>
                     </div>
                     </div>

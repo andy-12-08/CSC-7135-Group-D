@@ -7,11 +7,8 @@
 
 
 <?php 
- // session_start();
+
   include_once "php/config.php";
-  // if(!isset($_SESSION['unique_id'])){
-  //   header("location: login.php");
-  // }
   include('../class/Appointment.php');
 
   $object = new Appointment;
@@ -21,11 +18,8 @@
   if ($_SESSION['type'] =='Admin'){
     $_SESSION['unique_id']='1327219325';
   }else if($_SESSION['type'] =='Doctor'){
-   // echo $_SESSION['admin_id'];
-
+ 
     $user_id = mysqli_real_escape_string($conn, $_SESSION['admin_id']);
-    //$sql = mysqli_query($conn, "SELECT * FROM users WHERE unique_id = {$user_id}");
-  
     $sql = mysqli_query($conn, "SELECT a.unique_id,a.email,b.tutor_id,b.tutor_email_address
     from users a, tutor_table b
     where a.user_id =b.tutor_id
@@ -50,13 +44,14 @@ include('../admin/chat_header.php');
     <section class="users">
       <header>
         <div class="content">
-          <?php 
 
+          <?php 
             $sql = mysqli_query($conn, "SELECT * FROM users WHERE unique_id = {$_SESSION['unique_id']}");
             if(mysqli_num_rows($sql) > 0){
               $row = mysqli_fetch_assoc($sql);
             }
           ?>
+
           <img src="../images/<?php echo $row['img']; ?>" alt="">
           <div class="details">
             <span><?php echo $row['fname']. "-" . $row['lname'] ?></span>
