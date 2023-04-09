@@ -130,6 +130,10 @@
 .bg-gradient-primary{
   background-image: linear-gradient(195deg, #483d8b 0%, #483d8b 100%) !important;
 }
+.badge-primary {
+    color: #fff;
+     background-color: white!important; 
+}
 
 	
 </style>

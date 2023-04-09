@@ -14,7 +14,7 @@
   $object = new Appointment;
    //$_SESSION['admin_id'];
 
-   $_SESSION['type'];
+    $_SESSION['type'];
 
   if ($_SESSION['type'] =='Admin'){
     $_SESSION['unique_id']='1327219325';
@@ -48,10 +48,6 @@
     $_SESSION['unique_id']=$row['unique_id'];
   }
 
-
-
-
-
 ?>
 <?php 
 if($_SESSION['type'] =='Student'){
@@ -81,6 +77,10 @@ else{
             if(mysqli_num_rows($sql) > 0){
               $row = mysqli_fetch_assoc($sql);
             }
+
+           
+
+
           ?>
 
           <img src="../images/<?php echo $row['img']; ?>" alt="">

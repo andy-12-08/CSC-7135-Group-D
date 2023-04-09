@@ -16,7 +16,7 @@ function send_email($to_email, $to_name) {
     $mail->Host       = 'smtp.gmail.com';
     $mail->SMTPAuth   = true;
     $mail->Username   = 'lsurahman157@gmail.com';
-    $mail->Password   = 'aiycioojjoessscp';
+    $mail->Password   = 'whhkejqqufkmbibt';
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port       = 587;
 
@@ -27,9 +27,9 @@ function send_email($to_email, $to_name) {
     // Content
     $mail->isHTML(true);                                  // Set email format to HTML
     $mail->Subject = 'Email Confirmation for Online Tutor';
-    $mail->Body = '<i>Mail body in HTML</i><br><br>' .
-              'Click the link below to verify your email:<br>' .
-              '<a href="http://phpapplication-env.eba-mrbqpmvh.us-east-1.elasticbeanstalk.com/verify.php?code=' . $to_email . '">Verify Email</a>';
+    $mail->Body = '<i>Appointment Confirmation</i><br><br>' .
+              'Your appointment is approved:<br>' .
+              'Click the zoom link during the appointment time</a>';
     $mail->AltBody = 'This is the plain text version of the email content';
 
     $mail->send();
@@ -51,7 +51,7 @@ function send_tutor_email($to_email, $to_name) {
     $mail->Host       = 'smtp.gmail.com';
     $mail->SMTPAuth   = true;
     $mail->Username   = 'lsurahman157@gmail.com';
-    $mail->Password   = 'aiycioojjoessscp';
+    $mail->Password   = 'whhkejqqufkmbibt';
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port       = 587;
 

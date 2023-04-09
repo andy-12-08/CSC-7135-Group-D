@@ -52,7 +52,9 @@
                     
                 </div>
 
-
+ <?php
+        $_SESSION['type'] ='Student';
+ ?>
 
                 
 <!--                <i class="fas fa-laugh-wink"></i>-->
@@ -88,6 +90,8 @@
                     <span>Chat</span></a>
             </li>
         
+
+         
 
             <?php
             
@@ -178,17 +182,18 @@
                             </div>
                             <?php
                             }
-                            if($_SESSION['type'] == 'Doctor')
+                            if($_SESSION['type'] == 'Student')
                             {
                             ?>
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="tutor_profile.php">
+                                <a class="dropdown-item" href="../profile.php">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="../profile.php">
+
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>

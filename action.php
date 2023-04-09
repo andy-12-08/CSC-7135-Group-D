@@ -1,7 +1,9 @@
 <?php
 ob_start();
 //action.php
-
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 include('class/Appointment.php');
 include ('sendemail/mail.php');
 $object = new Appointment;
@@ -22,6 +24,7 @@ if(isset($_POST["action"]))
 
 	if($_POST['action'] == 'patient_register')
 	{
+
 		$error = '';
 		$success = '';
 		$data = array(
@@ -75,6 +78,39 @@ if(isset($_POST["action"]))
 
 			$object->execute($data);
 
+			$ran_id = rand(time(), 100000000);
+			
+			$data2 = array(
+				':unique_id' => $ran_id,
+				':doctor_email_address' => $object->clean_input($_POST["patient_email_address"]),
+				':online_status' => 'Offline now',
+				':doctor_name' => $object->clean_input($_POST["patient_first_name"])
+			);
+
+			
+			$object->query = "INSERT INTO users ( unique_id, email, status, fname, lname, user_type)
+							  VALUES (:unique_id, :doctor_email_address, :online_status, :doctor_name, 'Student', 'S')";
+			$object->execute($data2);
+
+
+			$data3 = array(
+				':type'		=>	'S'
+			);
+
+
+			$object->query = "
+			UPDATE users, student_table 
+			SET users.user_id = student_table.student_id
+			WHERE users.email = student_table.student_email_address
+			AND users.user_type = :type
+			";
+	
+			$object->execute($data3);
+
+
+
+
+
 
 
 		if (send_email($_POST["patient_email_address"], $_POST["patient_first_name"])) {
@@ -94,6 +130,9 @@ if(isset($_POST["action"]))
 		
 		ob_clean();
 		echo json_encode($output);
+
+
+	
 	}
 
 	
@@ -635,7 +674,7 @@ if(isset($_POST["action"]))
 
 			if($row["status"] == 'In Process')
 			{
-				$status = '<span class="badge badge-primary" style="color:green!important;">' . $row["status"] . '</span>';
+				$status = '<span class="badge badge-primary" style="color:green!important; ">' . $row["status"] . '</span>';
 			}
 
 			if($row["status"] == 'Completed')
@@ -650,7 +689,7 @@ if(isset($_POST["action"]))
 
 			$sub_array[] = $status;
 
-			$sub_array[] = '<button type="button" name="cancel_appointment" class="btn btn-danger btn-sm cancel_appointment" data-id="' . $row["appointment_id"] . '" data-status="' . $row["status"] . '" data-tutor_id="' . $row["tutor_id"] . '" data-student_id="' . $row["student_id"] . '"><i class="fas fa-times"></i></button>';
+			$sub_array[] = '<button type="button" name="cancel_appointment" class="btn btn-danger btn-sm cancel_appointment" data-id="' . $row["appointment_id"] . '" data-status="' . $row["status"] . '" data-tutor_id="' . $row["tutor_id"] . '" data-student_id="' . $row["student_id"] . '"><i class="fas fa-star fa-sm"></i></button>';
 
 
 			$data[] = $sub_array;

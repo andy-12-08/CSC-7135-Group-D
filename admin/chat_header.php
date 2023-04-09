@@ -57,7 +57,7 @@
                 
 <!--                <i class="fas fa-laugh-wink"></i>-->
 				<i class="fa-solid fa-a"></i>
-                <div class="sidebar-brand-text mx-3"><?php echo $_SESSION['type'];?></div>
+                <div class="sidebar-brand-text mx-3"><?php echo ($_SESSION['type'] == 'Doctor') ? 'Tutor' : $_SESSION['type']; ?></div>
             </a>
 
             <!-- Divider -->

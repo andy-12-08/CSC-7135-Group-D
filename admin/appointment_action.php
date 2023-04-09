@@ -3,7 +3,7 @@
 //appointment_action.php
 
 include('../class/Appointment.php');
-
+include ('../sendemail/appointment_mail.php');
 $object = new Appointment;
 
 if(isset($_POST["action"]))
@@ -434,6 +434,9 @@ if(isset($_POST["action"]))
 
 		if($_SESSION['type'] == 'Admin')
 		{
+
+			$appointment_id = $_POST['hidden_appointment_id'];
+
 			$data = array(
 				':status'							=>	$_POST['patient_come_into_hospital'],
 				':patient_come_into_hospital'		=>	'Yes',
@@ -450,6 +453,33 @@ if(isset($_POST["action"]))
 			$object->execute($data);
 
 			echo '<div class="alert alert-success">Appointment Status change to ' . $_POST['patient_come_into_hospital'] . '</div>';
+      
+
+			// $object->query = "
+			// SELECT a.appointment_id, a.appointment_time, a.tutor_id, a.student_id, b.tutor_email_address, c.student_email_address
+			// FROM appointment_table a, tutor_table b, student_table c
+			// WHERE a.tutor_id = b.tutor_id
+			// AND a.student_id = c.student_id
+			// AND a.appointment_id = :appointment_id
+			// ";
+
+			// $object->execute([':appointment_id' => $appointment_id]);
+
+			// $appointment_data = $object->get_result();
+			// //$result = $object->fetch(PDO::FETCH_ASSOC);
+
+			// foreach($appointment_data as $appointment_row)
+			// {
+			// 	$appointment_time = $appointment_row['appointment_time'];
+			// 	$tutor_id = $appointment_row['tutor_id'];
+			// 	$student_id = $appointment_row['student_id'];
+			// 	$tutor_email_address = $appointment_row['tutor_email_address'];
+			// 	$student_email_address = $appointment_row['student_email_address'];
+			// }
+			
+
+			
+	
 
 		}
 
