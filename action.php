@@ -210,6 +210,7 @@ if(isset($_POST["action"]))
 		SELECT * FROM tutor_schedule_table 
 		INNER JOIN tutor_table 
 		ON tutor_table.tutor_id = tutor_schedule_table.tutor_id 
+		and tutor_schedule_id not in (select tutor_schedule_id from appointment_table)
 		";
 
 		$search_query = '
@@ -582,6 +583,29 @@ if(isset($_POST["action"]))
 
 			$_SESSION['appointment_message'] = '<div class="alert alert-success">Your Appointment has been <b>'.$status.'</b> with Appointment No. <b>'.$appointment_number.'</b></div>';
 		}
+
+
+            $object->query = "
+			SELECT * FROM tutor_table 
+			WHERE tutor_id = '".$_POST['hidden_doctor_id']."'
+			";
+
+			$schedule_data = $object->get_result();
+
+			foreach($schedule_data as $schedule_row)
+			{
+				
+				$tutor_email_address = $schedule_row["tutor_email_address"];
+			}
+
+	
+		if (send_appointment_email($tutor_email_address, $tutor_email_address)) {
+			$success = 'success';
+        } else {
+		   $error = 'Error sending email: ' . $mail->ErrorInfo;
+        }
+
+
 		echo json_encode(['error' => $error]);
 		
 	}

@@ -12,9 +12,10 @@
   include('../class/Appointment.php');
 
   $object = new Appointment;
-   //$_SESSION['admin_id'];
+//  $_SESSION['admin_id'];
 
-    $_SESSION['type'];
+// $_SESSION['type'];
+  
 
   if ($_SESSION['type'] =='Admin'){
     $_SESSION['unique_id']='1327219325';
@@ -50,6 +51,7 @@
 
 ?>
 <?php 
+
 if($_SESSION['type'] =='Student'){
   include_once "header.php"; 
   include('../admin/student_header.php');

@@ -3,7 +3,7 @@
 //appointment_action.php
 
 include('../class/Appointment.php');
-include ('../sendemail/appointment_mail.php');
+include ('../sendemail/mail.php');
 $object = new Appointment;
 
 if(isset($_POST["action"]))
@@ -306,7 +306,7 @@ if(isset($_POST["action"]))
 									<td>
 										<select name="patient_come_into_hospital" id="patient_come_into_hospital" class="form-control" required>
 											<option value="">Select</option>
-											<option value="Yes" selected>Yes</option>
+											<option value="Completed" selected>Completed</option>
 											<option value="Cancel" >Cancel</option>
 										</select>
 									</td>
@@ -322,7 +322,7 @@ if(isset($_POST["action"]))
 								<td>
 									<select name="patient_come_into_hospital" id="patient_come_into_hospital" class="form-control" required>
 										<option value="">Select</option>
-										<option value="In Process" selected>In Process</option>
+										<option value="In Process" >In Process</option>
 										<option value="Cancel" >Cancel</option>
 										<option value="Completed" >Completed</option>
 									</select>
@@ -355,7 +355,7 @@ if(isset($_POST["action"]))
 							<td>
 								<select name="patient_come_into_hospital" id="patient_come_into_hospital" class="form-control" required>
 									<option value="">Select</option>
-									<option value="In Process" selected>In Process</option>
+									<option value="In Process">In Process</option>
 									<option value="Cancel" >Cancel</option>
 									<option value="Completed" >Completed</option>
 								</select>
@@ -387,9 +387,10 @@ if(isset($_POST["action"]))
 									<th width="40%" class="text-right">Appointment Status</th>
 									<td>
 										<select name="patient_come_into_hospital" id="patient_come_into_hospital" class="form-control" required>
-											<option value="">Select</option>
-											<option value="Yes" selected>In Process</option>
-											<option value="Cancel" >Cancel</option>
+										    <option value="">Select</option>
+											<option value="In Process">In Process</option>
+											<option value="Completed" >Completed</option>
+										
 										</select>
 									</td>
 								</tr
@@ -407,8 +408,7 @@ if(isset($_POST["action"]))
 									<td>
 										<select name="patient_come_into_hospital" id="patient_come_into_hospital" class="form-control" required>
 											<option value="">Select</option>
-											<option value="In Process" selected>In Process</option>
-											<option value="Cancel" >Cancel</option>
+											<option value="In Process">In Process</option>
 											<option value="Completed" >Completed</option>
 										</select>
 									</td>
@@ -455,56 +455,73 @@ if(isset($_POST["action"]))
 			echo '<div class="alert alert-success">Appointment Status change to ' . $_POST['patient_come_into_hospital'] . '</div>';
       
 
-			// $object->query = "
-			// SELECT a.appointment_id, a.appointment_time, a.tutor_id, a.student_id, b.tutor_email_address, c.student_email_address
-			// FROM appointment_table a, tutor_table b, student_table c
-			// WHERE a.tutor_id = b.tutor_id
-			// AND a.student_id = c.student_id
-			// AND a.appointment_id = :appointment_id
-			// ";
+				$object->query = "
+				select a.appointment_id, a.student_id,b.student_email_address
+				from appointment_table a,
+				student_table b
+				where a.student_id =b.student_id
+				and appointment_id = '".$_POST['hidden_appointment_id']."'
+				";
 
-			// $object->execute([':appointment_id' => $appointment_id]);
+				$schedule_data = $object->get_result();
 
-			// $appointment_data = $object->get_result();
-			// //$result = $object->fetch(PDO::FETCH_ASSOC);
+				foreach($schedule_data as $schedule_row)
+				{
+				$tutor_email_address = $schedule_row["student_email_address"];
+				}
 
-			// foreach($appointment_data as $appointment_row)
-			// {
-			// 	$appointment_time = $appointment_row['appointment_time'];
-			// 	$tutor_id = $appointment_row['tutor_id'];
-			// 	$student_id = $appointment_row['student_id'];
-			// 	$tutor_email_address = $appointment_row['tutor_email_address'];
-			// 	$student_email_address = $appointment_row['student_email_address'];
-			// }
-			
+				if (confirm_appointment_email($tutor_email_address, $_POST['patient_come_into_hospital'])) {
+				$success = 'success';
+				} else {
+				$error = 'Error sending email: ' . $mail->ErrorInfo;
+				}
 
-			
-	
-
+		
 		}
 
 		if($_SESSION['type'] == 'Doctor')
 		{
 
-			if(isset($_POST['doctor_comment']))
-			{
 				$data = array(
-					':status'							=>	'Completed',
-					':doctor_comment'					=>	$_POST['doctor_comment'],
+					':status'							=>	$_POST['patient_come_into_hospital'],
 					':appointment_id'					=>	$_POST['hidden_appointment_id']
 				);
 
 				$object->query = "
 				UPDATE appointment_table 
-				SET status = :status, 
-				tutor_comment = :doctor_comment 
+				SET status = :status
 				WHERE appointment_id = :appointment_id
 				";
 
 				$object->execute($data);
 
-				echo '<div class="alert alert-success">Appointment Completed</div>';
-			}
+				echo '<div class="alert alert-success">Appointment'.$_POST['patient_come_into_hospital'].'</div>';
+
+				$object->query = "
+				select a.appointment_id, a.student_id,b.student_email_address
+				from appointment_table a,
+				student_table b
+				where a.student_id =b.student_id
+				and appointment_id = '".$_POST['hidden_appointment_id']."'
+				";
+
+				$schedule_data = $object->get_result();
+
+				foreach($schedule_data as $schedule_row)
+				{
+				$tutor_email_address = $schedule_row["student_email_address"];
+				}
+
+				if (confirm_appointment_email($tutor_email_address, $_POST['patient_come_into_hospital'])) {
+				$success = 'success';
+				} else {
+				$error = 'Error sending email: ' . $mail->ErrorInfo;
+				}
+
+
+
+
+		
 
 
 
