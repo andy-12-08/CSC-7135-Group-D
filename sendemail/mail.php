@@ -96,10 +96,10 @@ function send_email($to_email, $to_name) {
               <a href="http://phpapplication-env.eba-mrbqpmvh.us-east-1.elasticbeanstalk.com/verify.php?code=' . $to_email . '" class="button">Verify Email</a>
               <p>If the button above does not work, please copy and paste the following link into your browser:</p>
               <p>http://phpapplication-env.eba-mrbqpmvh.us-east-1.elasticbeanstalk.com/verify.php?code=' . $to_email . '</p>
-              <p>Once your email is confirmed, you will be able to access your student account and start enjoying the benefits of being a student at Your University Name.</p>
+              <p>Once your email is confirmed, you will be able to access your student account and start enjoying the benefits of being a student at Lsu Online Portal.</p>
               <p>If you did not register for a student account, please ignore this email.</p>
               <p>Best regards,</p>
-              <p>Online Tutoring System- D/p>
+              <p>Online Tutoring System <p>
             </div>
             
             <div class="footer">

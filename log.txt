@@ -1,0 +1,40 @@
+Received POST Data:
+array (
+  'action' => 'student_profile',
+  'student_first_name' => 'ABDUR',
+  'student_last_name' => 'ONIK',
+  'email_address' => 'aonik1@lsu.edu',
+  'student_address' => '30, New Eskaton Road, Opsonin Pharma Limited',
+  'student_contact_no' => '01681007388',
+  'student_department' => 'CSE',
+  'hidden_admin_logo' => '',
+)
+Data array:
+array (
+  ':student_first_name' => 'ABDUR',
+  ':student_last_name' => 'ONIK',
+  ':student_address' => '30, New Eskaton Road, Opsonin Pharma Limited',
+  ':student_contact_no' => '01681007388',
+  ':student_department' => 'CSE',
+  ':admin_logo' => '',
+)
+Received POST Data:
+array (
+  'action' => 'student_profile',
+  'student_first_name' => 'ABDUR',
+  'student_last_name' => 'ONIK',
+  'email_address' => 'aonik1@lsu.edu',
+  'student_address' => '30, New Eskaton Road, Opsonin Pharma Limited',
+  'student_contact_no' => '01681007388',
+  'student_department' => 'CSE',
+  'hidden_admin_logo' => '',
+)
+Data array:
+array (
+  ':student_first_name' => 'ABDUR',
+  ':student_last_name' => 'ONIK',
+  ':student_address' => '30, New Eskaton Road, Opsonin Pharma Limited',
+  ':student_contact_no' => '01681007388',
+  ':student_department' => 'CSE',
+  ':admin_logo' => 'images/1524522263.jpg',
+)
