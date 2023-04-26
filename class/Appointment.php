@@ -13,7 +13,7 @@ class Appointment
 
 	public function __construct()
 	{
-		$this->connect = new PDO("mysql:host=segroupd.cncyjoyafhkj.us-east-1.rds.amazonaws.com;dbname=tutor_online", "admin", "SEgroupd");
+		$this->connect = new PDO("mysql:host=mysqldatabase.cncyjoyafhkj.us-east-1.rds.amazonaws.com;dbname=tutor_online", "admin", "SEgroupd");
 
 		date_default_timezone_set('Asia/Dhaka');
 
