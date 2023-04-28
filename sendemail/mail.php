@@ -156,7 +156,6 @@ function send_tutor_email($to_email, $to_name) {
     //           '';
 
     $mail->Body = '<html>
-
     <head>
       <style>
         body {
@@ -218,7 +217,9 @@ function send_tutor_email($to_email, $to_name) {
               <a href="http://phpapplication-env.eba-mrbqpmvh.us-east-1.elasticbeanstalk.com/admin" class="button">Login</a>
               <p>If the button above does not work, please copy and paste the following link into your browser:</p>
               <p>http://phpapplication-env.eba-mrbqpmvh.us-east-1.elasticbeanstalk.com/admin</p>
-              <p>Your Password is: 123456</p>
+              <p>Your One time Password is: 123456</p>
+              <p>
+              <p>http://localhost/andrewgit/admin</p>
            
               <p>Best regards,</p>
               <p>Online Tutoring System<p>
@@ -234,7 +235,9 @@ function send_tutor_email($to_email, $to_name) {
             </html>';
 
 
-    $mail->AltBody = 'This is the plain text version of the email content';
+    
+    
+            $mail->AltBody = 'This is the plain text version of the email content';
 
     $mail->send();
     return true;
@@ -265,12 +268,95 @@ function send_appointment_email($to_email, $to_name) {
 
     // Content
     $mail->isHTML(true);                                  // Set email format to HTML
-    $mail->Subject = 'Email Confirmation for Online Tutor';
-    $mail->Body = '<i>Appointment Request</i><br><br>' .
-              'An appointment request is requested by a Student<br>';
+    $mail->Subject = 'Appointment Request';
 
-    
-   
+
+
+              $mail->Body = '<html>
+              <head>
+                <style>
+                  body {
+                    font-family: Arial, sans-serif;
+                    line-height: 1.6;
+                    color: #333;
+                    background-color: #f6f6f6;
+                  }
+                  .container {
+                      max-width: 600px;
+                      margin: 30px auto;
+                      padding: 20px;
+                      background-color: #ffffff;
+                      border-radius: 5px;
+                      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+                    }
+                    
+                    .header {
+                      text-align: center;
+                      margin-bottom: 20px;
+                    }
+                    
+                    .header img {
+                      max-width: 150px;
+                    }
+                    
+                    .content {
+                      text-align: left;
+                    }
+                    
+                    .button {
+                      display: inline-block;
+                      font-weight: bold;
+                      text-decoration: none;
+                      padding: 12px 24px;
+                      border-radius: 5px;
+                      background-color: #4CAF50;
+                      color: #ffffff;
+                      margin-top: 15px;
+                    }
+                    
+                    .footer {
+                      text-align: center;
+                      margin-top: 30px;
+                      font-size: 0.9em;
+                    }
+                    </style>
+                    </head>
+                    <body>
+                      <div class="container">
+                        <div class="header">
+                          <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt="Your University Logo">
+                        </div>
+                        <div class="content">
+                        <h2> Appointment Request</h2>
+                        <p>Dear Tutor,</p>
+                       
+                        <p>An appointment request is requested</p>
+                        <a href="http://phpapplication-env.eba-mrbqpmvh.us-east-1.elasticbeanstalk.com/admin" class="button">Login</a>
+                        <p>If the button above does not work, please copy and paste the following link into your browser:</p>
+                        <p>http://phpapplication-env.eba-mrbqpmvh.us-east-1.elasticbeanstalk.com/admin</p>
+                       
+                        <p>
+                        <p>http://localhost/andrewgit/admin</p>
+                     
+                        <p>Best regards,</p>
+                        <p>Online Tutoring System<p>
+                      </div>
+                      
+                      <div class="footer">
+                        <p>&copy; Online Tutoring Sytem, All rights reserved.</p>
+                        <p>1315 Bob Pettit Blvd, Baton Rouge, 70820</p>
+                      </div>
+                      
+                      </div>
+                      </body>
+                      </html>';
+
+
+
+
+
+
+
     $mail->AltBody = 'Please Login to your account to accept or cancel the appointment';
 
     $mail->send();
