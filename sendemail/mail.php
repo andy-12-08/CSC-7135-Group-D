@@ -16,7 +16,7 @@ function send_email($to_email, $to_name) {
     $mail->Host       = 'smtp.gmail.com';
     $mail->SMTPAuth   = true;
     $mail->Username   = 'lsurahman157@gmail.com';
-    $mail->Password   = 'aiycioojjoessscp';
+    $mail->Password   = 'ygojeeckufiafsrl';
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port       = 587;
 
@@ -140,7 +140,7 @@ function send_tutor_email($to_email, $to_name) {
     $mail->Host       = 'smtp.gmail.com';
     $mail->SMTPAuth   = true;
     $mail->Username   = 'lsurahman157@gmail.com';
-    $mail->Password   = 'aiycioojjoessscp';
+    $mail->Password   = 'ygojeeckufiafsrl';
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port       = 587;
 
@@ -258,7 +258,9 @@ function send_appointment_email($to_email, $to_name) {
     $mail->Host       = 'smtp.gmail.com';
     $mail->SMTPAuth   = true;
     $mail->Username   = 'lsurahman157@gmail.com';
-    $mail->Password   = 'aiycioojjoessscp';
+    // $mail->Password   = 'aiycioojjoessscp';
+    $mail->Password   = 'ygojeeckufiafsrl';
+    
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port       = 587;
 
@@ -375,7 +377,7 @@ function confirm_appointment_email($to_email, $to_name) {
     $mail->Host       = 'smtp.gmail.com';
     $mail->SMTPAuth   = true;
     $mail->Username   = 'lsurahman157@gmail.com';
-    $mail->Password   = 'aiycioojjoessscp';
+    $mail->Password   = 'ygojeeckufiafsrl';
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port       = 587;
 

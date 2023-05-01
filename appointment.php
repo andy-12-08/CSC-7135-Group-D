@@ -197,6 +197,7 @@ include('student_header.php');
 </div>
 	
 
+
 	</main>
 
 	
@@ -239,6 +240,8 @@ $(document).ready(function(){
 
     if(appointment_status == "Completed")
     {
+
+		 alert('Tutor ID: ' + tutor_id);
         var rating = prompt("Please enter a rating (1-5):", "");
         if (rating !== null && !isNaN(rating) && rating >= 1 && rating <= 5) {
             $.ajax({

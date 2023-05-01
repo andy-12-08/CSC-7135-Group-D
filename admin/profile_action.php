@@ -92,6 +92,10 @@ if($_POST["action"] == 'doctor_profile')
 			";
 			$object->execute($data);
 
+
+
+			
+
 			$success = '<div class="alert alert-success">Tutor Data Updated</div>';
 		}			
 	}

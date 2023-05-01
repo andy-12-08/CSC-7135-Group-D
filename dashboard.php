@@ -226,6 +226,7 @@ include('student_header.php');
 											<thead>
 											<tr>
 											<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tutor Name</th>
+											<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Rating</th>
 											<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Education</th>
 											<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Speciality</th>
 											<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Appointment Date</th>
@@ -303,7 +304,7 @@ $(document).ready(function(){
 		},
 		"columnDefs":[
 			{
-                "targets":[6],				
+                "targets":[7],				
 				"orderable":false,
 			},
 		],

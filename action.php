@@ -84,12 +84,13 @@ if(isset($_POST["action"]))
 				':unique_id' => $ran_id,
 				':doctor_email_address' => $object->clean_input($_POST["patient_email_address"]),
 				':online_status' => 'Offline now',
-				':doctor_name' => $object->clean_input($_POST["patient_first_name"])
+				':doctor_name' => $object->clean_input($_POST["patient_first_name"]),
+				':img' => '../images/1848808197.png'
 			);
 
 			
-			$object->query = "INSERT INTO users ( unique_id, email, status, fname, lname, user_type)
-							  VALUES (:unique_id, :doctor_email_address, :online_status, :doctor_name, 'Student', 'S')";
+			$object->query = "INSERT INTO users ( unique_id, email, status, fname, lname, img,user_type)
+							  VALUES (:unique_id, :doctor_email_address, :online_status, :doctor_name, 'Student',:img, 'S')";
 			$object->execute($data2);
 
 
@@ -203,7 +204,7 @@ if(isset($_POST["action"]))
 	{
 		$output = array();
 
-		$order_column = array('tutor_table.tutor_name', 'tutor_table.tutor_degree', 'tutor_table.tutor_expert_in',
+		$order_column = array('tutor_table.tutor_name', 'tutor_table.tutor_degree', 'tutor_table.tutor_expert_in','tutor_table.tutor_rating',
 		 'tutor_schedule_table.tutor_schedule_date', 'tutor_schedule_table.tutor_schedule_day', 'tutor_schedule_table.tutor_schedule_start_time');
 		
 		$main_query = "
@@ -269,6 +270,8 @@ if(isset($_POST["action"]))
 
 			$sub_array[] = $row["tutor_name"];
 
+			$sub_array[] = $row["tutor_rating"];
+
 			$sub_array[] = $row["tutor_degree"];
 
 			$sub_array[] = $row["tutor_expert_in"];
@@ -279,6 +282,7 @@ if(isset($_POST["action"]))
 
 			$sub_array[] = $row["tutor_schedule_start_time"];
 
+         
 			$sub_array[] = '
 			<div align="center">
 			<button type="button" name="get_appointment" class="btn btn-success btn-sm get_appointment" data-doctor_id="'.$row["tutor_id"].'" data-doctor_schedule_id="'.$row["tutor_schedule_id"].'">Get Appointment</button>
@@ -333,8 +337,12 @@ if(isset($_POST["action"]))
 				$new_name = rand() . '.' . $file_extension;
 	
 				$destination = 'images/' . $new_name;
-	
+				//$destination2 = 'ChatApp/php/images/' . $new_name;
+				
 				move_uploaded_file($_FILES['admin_logo']['tmp_name'], $destination);
+
+			// Copy the image from the first destination to the second destination
+                //copy($destination1, $destination2);
 	
 				$admin_logo = $destination;
 			}
@@ -369,7 +377,7 @@ if(isset($_POST["action"]))
 		";
 			$object->execute($data);
 
-			$success = '<div class="alert alert-success">Admin Data Updated</div>';
+			$success = '<div class="alert alert-success">Student Data Updated</div>';
 
 		$output = array(
 			'error'					=>	$error,
@@ -729,25 +737,84 @@ if(isset($_POST["action"]))
 		echo json_encode($output);
 	}
 
-	if($_POST['action'] == 'cancel_appointment')
-	{
-		$data = array(
-			':appointment_id'	=>	$_POST['appointment_id'],
-			':rating'	        =>	$_POST['rating'],
-			':tutor_id'	        =>	$_POST['tutor_id'],
-			':student_id'	    =>	$_POST['student_id']
-		);
+// 	if($_POST['action'] == 'cancel_appointment')
+// 	{
+// 		$data = array(
+// 			':appointment_id'	=>	$_POST['appointment_id'],
+// 			':rating'	        =>	$_POST['rating'],
+// 			':tutor_id'	        =>	$_POST['tutor_id'],
+// 			':student_id'	    =>	$_POST['student_id']
+// 		);
 
-		$object->query = "
-			INSERT INTO tutor_rating 
-			(tutor_id, student_id, appointment_id, rating) 
-			VALUES (:tutor_id, :student_id, :appointment_id, :rating)
-			";
+// 		$object->query = "
+// 			INSERT INTO tutor_rating 
+// 			(tutor_id, student_id, appointment_id, rating) 
+// 			VALUES (:tutor_id, :student_id, :appointment_id, :rating)
+// 			";
 
-		$object->execute($data);
-		echo '<div class="alert alert-success">Tutor Rating is added.</div>';
+// 		$object->execute($data);
 
-	}
+
+// // Add the UPDATE query to update the tutor_table
+// 			$object->query = "
+// 			UPDATE tutor_table
+// 			SET tutor_rating = (
+// 			SELECT AVG(rating)
+// 			FROM tutor_rating
+// 			WHERE tutor_id = :tutor_id
+// 			)
+// 			WHERE tutor_id = :tutor_id
+// 			";
+
+// 			$object->execute($data);
+
+
+// 		echo '<div class="alert alert-success">Tutor Rating is added.</div>';
+
+// 	}
+
+
+if ($_POST['action'] == 'cancel_appointment') {
+    $data = array(
+        ':appointment_id' => $_POST['appointment_id'],
+        ':rating'         => $_POST['rating'],
+        ':tutor_id'       => $_POST['tutor_id'],
+        ':student_id'     => $_POST['student_id']
+    );
+
+    $object->query = "
+        INSERT INTO tutor_rating 
+        (tutor_id, student_id, appointment_id, rating) 
+        VALUES (:tutor_id, :student_id, :appointment_id, :rating)
+    ";
+
+    $object->execute($data);
+
+    // Add the UPDATE query to update the tutor_table
+    $object->query = "
+        UPDATE tutor_table
+        SET tutor_rating = (
+            SELECT AVG(rating)
+            FROM tutor_rating
+            WHERE tutor_id = :tutor_id
+        )
+        WHERE tutor_id = :tutor_id
+    ";
+
+	$update_data = array(
+		':tutor_id' => $_POST['tutor_id']
+	);
+
+    if ($object->execute($update_data)) {
+        echo '<div class="alert alert-success">Tutor rating has been updated in tutor_table.</div>';
+    } else {
+        // Display error information if the UPDATE query fails to execute
+        $errorInfo = $object->errorInfo();
+        echo '<div class="alert alert-danger">Error: ' . $errorInfo[2] . '</div>';
+    }
+
+    echo '<div class="alert alert-success">Tutor Rating is added.</div>';
+}
 }
 
 
