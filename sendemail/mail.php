@@ -93,9 +93,9 @@ function send_email($to_email, $to_name) {
               <p>Dear Student,</p>
               <p>Thank you for registering with Lsu Online Portal. Please confirm your email address to activate your student account. Once activated, you will be able to access university services and resources.</p>
               <p>To confirm your email address, please click the button below:</p>
-              <a href="http://phpapplication-env.eba-mrbqpmvh.us-east-1.elasticbeanstalk.com/verify.php?code=' . $to_email . '" class="button">Verify Email</a>
+              <a href="http://localhost/andrewgit/verify.php?code=' . $to_email . '" class="button">Verify Email</a>
               <p>If the button above does not work, please copy and paste the following link into your browser:</p>
-              <p>http://phpapplication-env.eba-mrbqpmvh.us-east-1.elasticbeanstalk.com/verify.php?code=' . $to_email . '</p>
+              <p>http://localhost/andrewgit/verify.php?code=' . $to_email . '</p>
               <p>Once your email is confirmed, you will be able to access your student account and start enjoying the benefits of being a student at Lsu Online Portal.</p>
               <p>If you did not register for a student account, please ignore this email.</p>
               <p>Best regards,</p>

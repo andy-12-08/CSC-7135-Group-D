@@ -1,8 +1,13 @@
 <?php
- $servername = "segroupd.cncyjoyafhkj.us-east-1.rds.amazonaws.com";
- $username = "admin";
- $password = "SEgroupd";
- $dbname = "tutor_online";
+
+$servername = "mysqldatabase.cncyjoyafhkj.us-east-1.rds.amazonaws.com";
+$username = "admin";
+$password = "SEgroupd";
+$dbname = "tutor_online";
+//  $servername = "segroupd.cncyjoyafhkj.us-east-1.rds.amazonaws.com";
+//  $username = "admin";
+//  $password = "SEgroupd";
+//  $dbname = "tutor_online";
 
   //  $servername = "localhost";
   //  $username = "root";

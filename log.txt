@@ -358,3 +358,47 @@ array (
   ':student_department' => 'CSE',
   ':admin_logo' => 'images/498297298.png',
 )
+Received POST Data:
+array (
+  'action' => 'student_profile',
+  'student_first_name' => 'Onik',
+  'student_last_name' => 'Akon',
+  'email_address' => 'aonik1@lsu.edu',
+  'student_address' => '1315 Bob Pettit Blvd
+Apt#22',
+  'student_contact_no' => '2258025676',
+  'student_department' => 'CSE',
+  'hidden_admin_logo' => '',
+)
+Data array:
+array (
+  ':student_first_name' => 'Onik',
+  ':student_last_name' => 'Akon',
+  ':student_address' => '1315 Bob Pettit Blvd
+Apt#22',
+  ':student_contact_no' => '2258025676',
+  ':student_department' => 'CSE',
+  ':admin_logo' => '',
+)
+Received POST Data:
+array (
+  'action' => 'student_profile',
+  'student_first_name' => 'Onik',
+  'student_last_name' => 'Akon',
+  'email_address' => 'aonik1@lsu.edu',
+  'student_address' => '1315 Bob Pettit Blvd
+Apt#22',
+  'student_contact_no' => '2258025676',
+  'student_department' => 'CSE',
+  'hidden_admin_logo' => '',
+)
+Data array:
+array (
+  ':student_first_name' => 'Onik',
+  ':student_last_name' => 'Akon',
+  ':student_address' => '1315 Bob Pettit Blvd
+Apt#22',
+  ':student_contact_no' => '2258025676',
+  ':student_department' => 'CSE',
+  ':admin_logo' => 'images/1461700677.png',
+)
