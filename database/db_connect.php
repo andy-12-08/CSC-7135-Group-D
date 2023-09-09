@@ -1,18 +1,18 @@
 <?php
 
-$servername = "mysqldatabase.cxclo2sjypfl.us-east-1.rds.amazonaws.com";
-$username = "admin";
-$password = "SEgroupd";
-$dbname = "tutor_online";
+// $servername = "mysqldatabase.cxclo2sjypfl.us-east-1.rds.amazonaws.com";
+// $username = "admin";
+// $password = "SEgroupd";
+// $dbname = "tutor_online";
 //  $servername = "segroupd.cncyjoyafhkj.us-east-1.rds.amazonaws.com";
 //  $username = "admin";
 //  $password = "SEgroupd";
 //  $dbname = "tutor_online";
 
-  //  $servername = "localhost";
-  //  $username = "root";
-  //  $password = "";
-  //  $dbname = "doctor_appointment";
+    $servername = "localhost";
+    $username = "root";
+     $password = "SEgroupd";
+    $dbname = "tutor_online";
 
   // Create connection
  
