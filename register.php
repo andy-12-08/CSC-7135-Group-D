@@ -1,5 +1,6 @@
 <?php
 include('header.php');
+include('class/Appointment.php');
 function checkEmailDomain($email, $domain) {
 	if (preg_match("/@".$domain."$/", $email)) {
 	  return true;
