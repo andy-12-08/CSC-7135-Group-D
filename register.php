@@ -1,10 +1,5 @@
-
-
-
-
 <?php
 include('header.php');
-include('class/Appointment.php');
 function checkEmailDomain($email, $domain) {
 	if (preg_match("/@".$domain."$/", $email)) {
 	  return true;
@@ -54,13 +49,13 @@ function checkEmailDomain($email, $domain) {
 								</div>
 							</div>
 						</div>
-						<!-- <div class="row">
+						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
 									<label>Student Date of Birth<span class="text-danger">*</span></label>
 									<input type="text" name="patient_date_of_birth" id="patient_date_of_birth" class="form-control" required  data-parsley-trigger="keyup" readonly />
 								</div>
-							</div> -->
+							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									<label>Student Gender<span class="text-danger">*</span></label>
@@ -168,7 +163,7 @@ $(document).ready(function(){
 					}
 					if(data.success !== '')
 					{
-						$('#message').html(data.success);
+						//$('#message').html(data.success);
 						
 						$('#message').html('<div class="alert alert-success">Registration successful! Redirecting to the login page...</div>');
 						setTimeout(function () {
