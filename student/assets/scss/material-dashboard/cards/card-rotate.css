@@ -1,0 +1,64 @@
+/*
+Error: Undefined mixin 'perspective'.
+        on line 2 of C:\xampp\htdocs\website\student\assets\scss\material-dashboard\cards\card-rotate.scss, in `perspective'
+        from line 2 of C:\xampp\htdocs\website\student\assets\scss\material-dashboard\cards\card-rotate.scss
+
+1: .rotating-card-container {
+2:   @include perspective(800px);
+3: 
+4:   .card-rotate {
+5:     background: transparent;
+6:     box-shadow: none;
+7: 
+
+Backtrace:
+C:\xampp\htdocs\website\student\assets\scss\material-dashboard\cards\card-rotate.scss:2:in `perspective'
+C:\xampp\htdocs\website\student\assets\scss\material-dashboard\cards\card-rotate.scss:2
+D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:348:in `block in visit_mixin'
+D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/stack.rb:98:in `block in with_mixin'
+D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/stack.rb:135:in `with_frame'
+D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/stack.rb:98:in `with_mixin'
+D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:346:in `visit_mixin'
+D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/tree/visitors/base.rb:36:in `visit'
+D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
+D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/stack.rb:79:in `block in with_base'
+D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/stack.rb:135:in `with_frame'
+D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/stack.rb:79:in `with_base'
+D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:158:in `visit'
+D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:440:in `block (2 levels) in visit_rule'
+D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:440:in `map'
+D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:440:in `block in visit_rule'
+D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
+D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:438:in `visit_rule'
+D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/tree/visitors/base.rb:36:in `visit'
+D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
+D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/stack.rb:79:in `block in with_base'
+D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/stack.rb:135:in `with_frame'
+D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/stack.rb:79:in `with_base'
+D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:158:in `visit'
+D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/tree/visitors/base.rb:52:in `block in visit_children'
+D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/tree/visitors/base.rb:52:in `map'
+D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/tree/visitors/base.rb:52:in `visit_children'
+D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:167:in `block in visit_children'
+D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
+D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:166:in `visit_children'
+D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/tree/visitors/base.rb:36:in `block in visit'
+D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:186:in `visit_root'
+D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/tree/visitors/base.rb:36:in `visit'
+D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:157:in `visit'
+D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/tree/visitors/perform.rb:10:in `visit'
+D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/tree/root_node.rb:36:in `css_tree'
+D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/tree/root_node.rb:20:in `render'
+D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/engine.rb:290:in `render'
+D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/exec/sass_scss.rb:396:in `run'
+D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/exec/sass_scss.rb:63:in `process_result'
+D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/exec/base.rb:50:in `parse'
+D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/exec/base.rb:18:in `parse!'
+D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/lib/ruby/gems/2.7.0/gems/sass-3.7.4/bin/sass:13:in `<top (required)>'
+D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/bin/sass:23:in `load'
+D:/Adobe_Dreamweaver_v21.0.0.15392x64/Adobe Dreamweaver 2021/ruby/bin/sass:23:in `<main>'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Error: Undefined mixin 'perspective'.\A         on line 2 of C:\xampp\htdocs\website\student\assets\scss\material-dashboard\cards\card-rotate.scss, in `perspective'\A         from line 2 of C:\xampp\htdocs\website\student\assets\scss\material-dashboard\cards\card-rotate.scss\A \A 1: .rotating-card-container {\A 2:   @include perspective(800px);\A 3: \A 4:   .card-rotate {\A 5:     background: transparent;\A 6:     box-shadow: none;\A 7: "; }
