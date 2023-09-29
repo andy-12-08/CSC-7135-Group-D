@@ -11,7 +11,7 @@
 
     $servername = "localhost";
     $username = "root";
-     $password = "SEgroupd";
+    $password = "SEgroupd";
     $dbname = "tutor_online";
 
   // Create connection
