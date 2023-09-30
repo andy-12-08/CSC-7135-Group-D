@@ -9,7 +9,7 @@
 //  $password = "SEgroupd";
 //  $dbname = "tutor_online";
 
-    $servername = "localhost";
+    $servername = "ec2-54-196-156-86.compute-1.amazonaws.com";
     $username = "root";
     $password = "SEgroupd";
     $dbname = "tutor_online";
