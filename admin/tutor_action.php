@@ -3,7 +3,7 @@
 //doctor_action.php
 
 include('../class/Appointment.php');
-include ('../sendemail/mail.php');
+
 $object = new Appointment;
 
 if(isset($_POST["action"]))
@@ -173,8 +173,6 @@ if(isset($_POST["action"]))
 
 			if($error == '')
 			{
-				$ran_id = rand(time(), 100000000);
-				send_tutor_email($_POST["doctor_email_address"], $_POST["doctor_name"]);
 				$data = array(
 					':doctor_email_address'			=>	$object->clean_input($_POST["doctor_email_address"]),
 					':doctor_password'				=>	$_POST["doctor_password"],
@@ -187,7 +185,6 @@ if(isset($_POST["action"]))
 					':doctor_expert_in'				=>	$object->clean_input($_POST["doctor_expert_in"]),
 					':doctor_status'				=>	'Active',
 					':doctor_added_on'				=>	$object->now
-					
 				);
 
 				$object->query = "
@@ -195,57 +192,10 @@ if(isset($_POST["action"]))
 				(tutor_email_address, tutor_password, tutor_name, tutor_profile_image, tutor_phone_no, tutor_address, tutor_date_of_birth, tutor_degree, tutor_expert_in, tutor_status, tutor_added_on) 
 				VALUES (:doctor_email_address, :doctor_password, :doctor_name, :doctor_profile_image, :doctor_phone_no, :doctor_address, :doctor_date_of_birth, :doctor_degree, :doctor_expert_in, :doctor_status, :doctor_added_on)
 				";
+
 				$object->execute($data);
 
-
-				// $object->query = "SELECT tutor_id FROM tutor_table WHERE tutor_email_address = :doctor_email_address";
-				// $object->execute(array(':doctor_email_address' => $object->clean_input($_POST["doctor_email_address"])));
-				// $result = $object->fetch(PDO::FETCH_ASSOC);
-				// $last_inserted_tutor_id = $result['tutor_id'];
-
-				// $result = $object->execute_query_and_fetch("SELECT tutor_id FROM tutor_table WHERE tutor_email_address = :doctor_email_address", array(':doctor_email_address' => $object->clean_input($_POST["doctor_email_address"])));
-				// $last_inserted_tutor_id = $result['tutor_id'];
-
-				// UPDATE users, tutor_table
-				// SET users.user_id = tutor_table.tutor_id
-				// WHERE users.email = tutor_table.tutor_email_address
-				// AND users.user_type ='T'
-				
-				
-
-
-				$data2 = array(
-					':unique_id' => $ran_id,
-					':doctor_email_address' => $object->clean_input($_POST["doctor_email_address"]),
-					':doctor_profile_image' => $doctor_profile_image,
-					':online_status' => 'Offline now',
-					':doctor_name' => $object->clean_input($_POST["doctor_name"])
-				);
-
-				
-	            $object->query = "INSERT INTO users ( unique_id, email, img, status, fname, lname, user_type)
-                                  VALUES (:unique_id, :doctor_email_address, :doctor_profile_image, :online_status, :doctor_name, 'Tutor', 'T')";
-				$object->execute($data2);
-
-
-				$data3 = array(
-					':type'		=>	'T'
-				);
-
-
-				$object->query = "
-				UPDATE users, tutor_table 
-				SET users.user_id = tutor_table.tutor_id
-				WHERE users.email = tutor_table.tutor_email_address
-				AND users.user_type = :type
-				";
-		
-				$object->execute($data3);
-			
 				$success = '<div class="alert alert-success">Tutor Added</div>';
-				
-	
-				
 			}
 		}
 

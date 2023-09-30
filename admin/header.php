@@ -51,7 +51,9 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     
                 </div>
-                <?php echo ($_SESSION['type'] == 'Admin') ? '<i class="fa-solid fa-a"></i><div class="sidebar-brand-text mx-3">Admin</div>' : '<div class="sidebar-brand-text mx-3">Tutor</div>' ?>
+<!--                <i class="fas fa-laugh-wink"></i>-->
+				<i class="fa-solid fa-a"></i>
+                <div class="sidebar-brand-text mx-3">Admin</div>
             </a>
 
             <!-- Divider -->
@@ -100,13 +102,6 @@
                     <i class="far fa-id-card"></i>
                     <span>Profile</span></a>
             </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="../ChatApp/users.php">
-                    <i class="far fa-id-card"></i>
-                    <span>Chat</span></a>
-            </li>
-
             <?php
             } 
             else
@@ -117,13 +112,6 @@
                     <i class="far fa-id-card"></i>
                     <span>Profile</span></a>
             </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="../ChatApp/users.php">
-                    <i class="far fa-id-card"></i>
-                    <span>Chat</span></a>
-            </li>
-
             <?php
             }
             ?>
@@ -175,7 +163,7 @@
                             foreach($user_result as $row)
                             {
                                 $user_name = $row['admin_name'];
-                                $user_profile_image = $row['admin_logo'];
+                                $user_profile_image = $row['hospital_logo'];
                             }
                         }
 

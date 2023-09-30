@@ -3,7 +3,7 @@
 //appointment_action.php
 
 include('../class/Appointment.php');
-include ('../sendemail/mail.php');
+
 $object = new Appointment;
 
 if(isset($_POST["action"]))
@@ -225,7 +225,7 @@ if(isset($_POST["action"]))
 			{
 				$html .= '
 				<tr>
-					<th width="40%" class="text-right">Student Name</th>
+					<th width="40%" class="text-right">Patient Name</th>
 					<td>'.$patient_row["student_first_name"].' '.$patient_row["student_last_name"].'</td>
 				</tr>
 				<tr>
@@ -253,7 +253,7 @@ if(isset($_POST["action"]))
 			{
 				$html .= '
 				<tr>
-					<th width="40%" class="text-right">Tutor Name</th>
+					<th width="40%" class="text-right">Doctor Name</th>
 					<td>'.$doctor_schedule_row["tutor_name"].'</td>
 				</tr>
 				<tr>
@@ -289,7 +289,7 @@ if(isset($_POST["action"]))
 						{
 							$html .= '
 								<tr>
-									<th width="40%" class="text-right">Appointment Status</th>
+									<th width="40%" class="text-right">Student come into Online</th>
 									<td>Yes</td>
 								</tr>
 								<tr>
@@ -302,12 +302,11 @@ if(isset($_POST["action"]))
 						{
 							$html .= '
 								<tr>
-									<th width="40%" class="text-right">Appointment Status</th>
+									<th width="40%" class="text-right">Student come into Hostpital</th>
 									<td>
 										<select name="patient_come_into_hospital" id="patient_come_into_hospital" class="form-control" required>
 											<option value="">Select</option>
-											<option value="Completed" selected>Completed</option>
-											<option value="Cancel" >Cancel</option>
+											<option value="Yes" selected>Yes</option>
 										</select>
 									</td>
 								</tr
@@ -318,23 +317,22 @@ if(isset($_POST["action"]))
 					{
 						$html .= '
 							<tr>
-								<th width="40%" class="text-right">Appointment Status</th>
+								<th width="40%" class="text-right">Student come into Online</th>
 								<td>
 									<select name="patient_come_into_hospital" id="patient_come_into_hospital" class="form-control" required>
 										<option value="">Select</option>
-										<option value="In Process" >In Process</option>
-										<option value="Cancel" >Cancel</option>
-										<option value="Completed" >Completed</option>
+										<option value="Yes">Yes</option>
 									</select>
 								</td>
-							</tr>
+							</tr
 						';
 					}
 				}
 
 				if($_SESSION['type'] == 'Doctor')
 				{
-					//if($appointment_row["student_come_into_appointment"] == 'Yes'){
+					if($appointment_row["student_come_into_appointment"] == 'Yes')
+					{
 						if($appointment_row["status"] == 'Completed')
 						{
 							$html .= '
@@ -343,82 +341,24 @@ if(isset($_POST["action"]))
 									<td>
 										<textarea name="doctor_comment" id="doctor_comment" class="form-control" rows="8" required>'.$appointment_row["tutor_comment"].'</textarea>
 									</td>
-								</tr>
+								</tr
 							';
 						}
 						else
 						{
 							$html .= '
-
-							<tr>
-							<th width="40%" class="text-right">Appointment Status</th>
-							<td>
-								<select name="patient_come_into_hospital" id="patient_come_into_hospital" class="form-control" required>
-									<option value="">Select</option>
-									<option value="In Process">In Process</option>
-									<option value="Cancel" >Cancel</option>
-									<option value="Completed" >Completed</option>
-								</select>
-							</td>
-						</tr>
-
-
-
 								<tr>
 									<th width="40%" class="text-right">Tutor Comment</th>
 									<td>
 										<textarea name="doctor_comment" id="doctor_comment" class="form-control" rows="8" required></textarea>
 									</td>
-								</tr>
+								</tr
 							';
 						}
-					//}
+					}
 				}
 			
 			}
-
-			if($appointment_row["status"] == 'Cancel')
-			{
-				if($_SESSION['type'] == 'Admin')
-				{
-					
-							$html .= '
-								<tr>
-									<th width="40%" class="text-right">Appointment Status</th>
-									<td>
-										<select name="patient_come_into_hospital" id="patient_come_into_hospital" class="form-control" required>
-										    <option value="">Select</option>
-											<option value="In Process">In Process</option>
-											<option value="Completed" >Completed</option>
-										
-										</select>
-									</td>
-								</tr
-							';
-						
-					
-					
-				}
-
-				if($_SESSION['type'] == 'Doctor')
-				{
-					$html .= '
-								<tr>
-									<th width="40%" class="text-right">Appointment Status</th>
-									<td>
-										<select name="patient_come_into_hospital" id="patient_come_into_hospital" class="form-control" required>
-											<option value="">Select</option>
-											<option value="In Process">In Process</option>
-											<option value="Completed" >Completed</option>
-										</select>
-									</td>
-								</tr
-							';
-				}
-			
-			}
-
-
 
 			$html .= '
 			</table>
@@ -428,17 +368,12 @@ if(isset($_POST["action"]))
 		echo $html;
 	}
 
-
 	if($_POST['action'] == 'change_appointment_status')
 	{
-
 		if($_SESSION['type'] == 'Admin')
 		{
-
-			$appointment_id = $_POST['hidden_appointment_id'];
-
 			$data = array(
-				':status'							=>	$_POST['patient_come_into_hospital'],
+				':status'							=>	'In Process',
 				':patient_come_into_hospital'		=>	'Yes',
 				':appointment_id'					=>	$_POST['hidden_appointment_id']
 			);
@@ -452,82 +387,31 @@ if(isset($_POST["action"]))
 
 			$object->execute($data);
 
-			echo '<div class="alert alert-success">Appointment Status change to ' . $_POST['patient_come_into_hospital'] . '</div>';
-      
-
-				$object->query = "
-				select a.appointment_id, a.student_id,b.student_email_address
-				from appointment_table a,
-				student_table b
-				where a.student_id =b.student_id
-				and appointment_id = '".$_POST['hidden_appointment_id']."'
-				";
-
-				$schedule_data = $object->get_result();
-
-				foreach($schedule_data as $schedule_row)
-				{
-				$tutor_email_address = $schedule_row["student_email_address"];
-				}
-
-				if (confirm_appointment_email($tutor_email_address, $_POST['patient_come_into_hospital'])) {
-				$success = 'success';
-				} else {
-				$error = 'Error sending email: ' . $mail->ErrorInfo;
-				}
-
-		
+			echo '<div class="alert alert-success">Appointment Status change to In Process</div>';
 		}
 
 		if($_SESSION['type'] == 'Doctor')
 		{
-
+			if(isset($_POST['doctor_comment']))
+			{
 				$data = array(
-					':status'							=>	$_POST['patient_come_into_hospital'],
+					':status'							=>	'Completed',
+					':doctor_comment'					=>	$_POST['tutor_comment'],
 					':appointment_id'					=>	$_POST['hidden_appointment_id']
 				);
 
 				$object->query = "
 				UPDATE appointment_table 
-				SET status = :status
+				SET status = :status, 
+				tutor_comment = :doctor_comment 
 				WHERE appointment_id = :appointment_id
 				";
 
 				$object->execute($data);
 
-				echo '<div class="alert alert-success">Appointment'.$_POST['patient_come_into_hospital'].'</div>';
-
-				$object->query = "
-				select a.appointment_id, a.student_id,b.student_email_address
-				from appointment_table a,
-				student_table b
-				where a.student_id =b.student_id
-				and appointment_id = '".$_POST['hidden_appointment_id']."'
-				";
-
-				$schedule_data = $object->get_result();
-
-				foreach($schedule_data as $schedule_row)
-				{
-				$tutor_email_address = $schedule_row["student_email_address"];
-				}
-
-				if (confirm_appointment_email($tutor_email_address, $_POST['patient_come_into_hospital'])) {
-				$success = 'success';
-				} else {
-				$error = 'Error sending email: ' . $mail->ErrorInfo;
-				}
-
-
-
-
-		
-
-
-
+				echo '<div class="alert alert-success">Appointment Completed</div>';
+			}
 		}
-
-
 	}
 	
 
@@ -542,9 +426,6 @@ if(isset($_POST["action"]))
 
 		echo '<div class="alert alert-success">Tutor Schedule has been Deleted</div>';
 	}
-
-
-
 }
 
 ?>

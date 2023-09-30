@@ -99,11 +99,7 @@ $(document).ready(function(){
 
     $(document).on('click', '.view_button', function(){
 
-       
-
         var patient_id = $(this).data('id');
-
-        alert(patient_id);
 
         $.ajax({
 
@@ -133,7 +129,7 @@ $(document).ready(function(){
                 html += '<tr><th width="40%" class="text-right">Date of Birth</th><td width="60%">'+data.patient_date_of_birth+'</td></tr>';
                 html += '<tr><th width="40%" class="text-right">Gender</th><td width="60%">'+data.patient_gender+'</td></tr>';
 
-                html += '<tr><th width="40%" class="text-right">Department</th><td width="60%">'+data.patient_maritial_status+'</td></tr>';
+                html += '<tr><th width="40%" class="text-right">Maritial Status</th><td width="60%">'+data.patient_maritial_status+'</td></tr>';
 
                 html += '<tr><th width="40%" class="text-right">Email Verification Status</th><td width="60%">'+data.email_verify+'</td></tr>';
 

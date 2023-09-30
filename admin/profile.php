@@ -19,10 +19,8 @@ $object->query = "
 SELECT * FROM admin_table
 WHERE admin_id = '".$_SESSION["admin_id"]."'
 ";
+
 $result = $object->get_result();
-
-
-
 
 include('header.php');
 
@@ -64,20 +62,20 @@ include('header.php');
                                         </div>
                                         <div class="form-group">
                                             <label>University Name</label>
-                                            <input type="text" name="uni_name" id="uni_name" class="form-control" required  data-parsley-trigger="keyup" />
+                                            <input type="text" name="hospital_name" id="hospital_name" class="form-control" required  data-parsley-trigger="keyup" />
                                         </div>
                                         <div class="form-group">
                                             <label>University Address</label>
-                                            <textarea name="uni_address" id="uni_address" class="form-control" required ></textarea>
+                                            <textarea name="hospital_address" id="hospital_address" class="form-control" required ></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label>University Contact No.</label>
-                                            <input type="text" name="admin_contact_no" id="admin_contact_no" class="form-control" required  data-parsley-trigger="keyup" />
+                                            <input type="text" name="hospital_contact_no" id="hospital_contact_no" class="form-control" required  data-parsley-trigger="keyup" />
                                         </div>
                                         <div class="form-group">
                                             <label>Admin Picture</label><br />
-                                            <input type="file" name="admin_logo" id="admin_logo" />
-                                            <span id="uploaded_admin_logo"></span>
+                                            <input type="file" name="hospital_logo" id="hospital_logo" />
+                                            <span id="uploaded_hospital_logo"></span>
                                         </div>
                                     <!--</div>
                                 </div>!-->
@@ -98,21 +96,21 @@ $(document).ready(function(){
     $('#admin_email_address').val("<?php echo $row['admin_email_address']; ?>");
     $('#admin_password').val("<?php echo $row['admin_password']; ?>");
     $('#admin_name').val("<?php echo $row['admin_name']; ?>");
-    $('#uni_name').val("<?php echo $row['uni_name']; ?>");
-    $('#uni_address').val("<?php echo $row['uni_address']; ?>");
-    $('#admin_contact_no').val("<?php echo $row['admin_contact_no']; ?>");
+    $('#hospital_name').val("<?php echo $row['hospital_name']; ?>");
+    $('#hospital_address').val("<?php echo $row['hospital_address']; ?>");
+    $('#hospital_contact_no').val("<?php echo $row['hospital_contact_no']; ?>");
     <?php
-        if($row['admin_logo'] != '')
+        if($row['hospital_logo'] != '')
         {
     ?>
-    $("#uploaded_admin_logo").html("<img src='<?php echo $row["admin_logo"]; ?>' class='img-thumbnail' width='100' /><input type='hidden' name='hidden_admin_logo' value='<?php echo $row['admin_logo']; ?>' />");
+    $("#uploaded_hospital_logo").html("<img src='<?php echo $row["hospital_logo"]; ?>' class='img-thumbnail' width='100' /><input type='hidden' name='hidden_hospital_logo' value='<?php echo $row['hospital_logo']; ?>' />");
 
     <?php
         }
         else
         {
     ?>
-    $("#uploaded_admin_logo").html("<input type='hidden' name='hidden_admin_logo' value='' />");
+    $("#uploaded_hospital_logo").html("<input type='hidden' name='hidden_hospital_logo' value='' />");
     <?php
         }
     }
@@ -152,17 +150,17 @@ $(document).ready(function(){
                         $('#admin_password').val(data.admin_password);
                         $('#admin_name').val(data.admin_name);
 
-                        $('#uni_name').val(data.uni_name);
-                        $('#uni_address').val(data.uni_address);
-                        $('#admin_contact_no').val(data.admin_contact_no);
+                        $('#hospital_name').val(data.hospital_name);
+                        $('#hospital_address').val(data.hospital_address);
+                        $('#hospital_contact_no').val(data.hospital_contact_no);
 
-                        if(data.admin_logo != '')
+                        if(data.hospital_logo != '')
                         {
-                            $("#uploaded_admin_logo").html("<img src='"+data.admin_logo+"' class='img-thumbnail' width='100' /><input type='hidden' name='hidden_admin_logo' value='"+data.admin_logo+"'");
+                            $("#uploaded_hospital_logo").html("<img src='"+data.hospital_logo+"' class='img-thumbnail' width='100' /><input type='hidden' name='hidden_hospital_logo' value='"+data.hospital_logo+"'");
                         }
                         else
                         {
-                            $("#uploaded_admin_logo").html("<input type='hidden' name='hidden_admin_logo' value='"+data.admin_logo+"'");
+                            $("#uploaded_hospital_logo").html("<input type='hidden' name='hidden_hospital_logo' value='"+data.hospital_logo+"'");
                         }
 
                         $('#message').html(data.success);

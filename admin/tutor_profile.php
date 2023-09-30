@@ -175,26 +175,25 @@ $(document).ready(function(){
 				},
 				success:function(data)
 				{
-
 					$('#edit_button').attr('disabled', false);
                     $('#edit_button').html('<i class="fas fa-edit"></i> Edit');
 
-                    $('#doctor_email_address').val(data.tutor_email_address);
-                    $('#doctor_password').val(data.tutor_password);
-                    $('#doctor_name').val(data.tutor_name);
-                    $('#doctor_phone_no').val(data.tutor_phone_no);
-                    $('#doctor_address').text(data.tutor_address);
+                    $('#doctor_email_address').val(data.doctor_email_address);
+                    $('#doctor_password').val(data.doctor_password);
+                    $('#doctor_name').val(data.doctor_name);
+                    $('#doctor_phone_no').val(data.doctor_phone_no);
+                    $('#doctor_address').text(data.doctor_address);
                     $('#doctor_date_of_birth').text(data.doctor_date_of_birth);
-                    $('#doctor_degree').text(data.tutor_degree);
-                    $('#doctor_expert_in').text(data.tutor_expert_in);
-                    if(data.tutor_profile_image != '')
+                    $('#doctor_degree').text(data.doctor_degree);
+                    $('#doctor_expert_in').text(data.doctor_expert_in);
+                    if(data.doctor_profile_image != '')
                     {
-                        $('#uploaded_image').html('<img src="'+data.tutor_profile_image+'" class="img-thumbnail" width="100" />');
+                        $('#uploaded_image').html('<img src="'+data.doctor_profile_image+'" class="img-thumbnail" width="100" />');
 
-                        $('#user_profile_image').attr('src', data.tutor_profile_image);
+                        $('#user_profile_image').attr('src', data.doctor_profile_image);
                     }
 
-                    $('#hidden_doctor_profile_image').val(data.tutor_profile_image);
+                    $('#hidden_doctor_profile_image').val(data.doctor_profile_image);
 						
                     $('#message').html(data.success);
 

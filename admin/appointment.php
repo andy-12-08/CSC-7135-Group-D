@@ -142,7 +142,35 @@ $(document).ready(function(){
         });
     }
 
-
+	/*var dataTable = $('#appointment_table').DataTable({
+		"processing" : true,
+		"serverSide" : true,
+		"order" : [],
+		"ajax" : {
+			url:"appointment_action.php",
+			type:"POST",
+			data:{action:'fetch'}
+		},
+		"columnDefs":[
+			{
+                <?php
+                //if($_SESSION['type'] == 'Admin')
+                //{
+                ?>
+				"targets":[7],
+                <?php
+               // }
+               // else
+              //  {
+                ?>
+                "targets":[6],
+                <?php
+               // }
+                ?>
+				"orderable":false,
+			},
+		],
+	});*/
 
     $(document).on('click', '.view_button', function(){
 
@@ -197,13 +225,9 @@ $(document).ready(function(){
     $('#edit_appointment_form').parsley();
 
     $('#edit_appointment_form').on('submit', function(event){
-
-      
         event.preventDefault();
         if($('#edit_appointment_form').parsley().isValid())
-        {      
-            var formData = $(this).serialize();
-            console.log("Form data:", formData);
+        {       
             $.ajax({
                 url:"appointment_action.php",
                 method:"POST",

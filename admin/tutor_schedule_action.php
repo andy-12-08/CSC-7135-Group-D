@@ -175,7 +175,6 @@ if(isset($_POST["action"]))
 
 		$success = '<div class="alert alert-success">Tutor Schedule Added Successfully</div>';
 
-
 		$output = array(
 			'error'		=>	$error,
 			'success'	=>	$success

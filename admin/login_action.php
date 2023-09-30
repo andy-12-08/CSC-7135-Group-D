@@ -74,7 +74,6 @@ if(isset($_POST["admin_email_address"]))
 			{
 				$_SESSION['admin_id'] = $row['admin_id'];
 				$_SESSION['type'] = 'Admin';
-				$_SESSION['unique_id']='1327219325';
 				$url = $object->base_url . 'admin/dashboard.php';
 			}
 			else
