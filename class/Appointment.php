@@ -12,7 +12,7 @@ class Appointment
 
 	public function __construct()
 	{
-		$this->connect = new PDO("mysql:host=localhost;dbname=doctor_appointment", "root", "");
+		$this->connect = new PDO("mysql:host=localhost;dbname=tutor_online", "root", "SEgroupd");
 
 		date_default_timezone_set('Asia/Dhaka');
 
